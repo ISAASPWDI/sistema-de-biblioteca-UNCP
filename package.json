@@ -1,7 +1,7 @@
 {
   "name": "sistema-de-biblioteca-uncp",
   "version": "1.0.0",
-  "main": "main.js",
+  "main": "./src/main/main.js",
   "scripts": {
     "start": "electron ."
   },
@@ -9,12 +9,15 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@eslint/js": "^9.10.0",
-    "electron": "^32.1.0",
-    "eslint": "^9.10.0",
-    "globals": "^15.9.0"
+    "@eslint/js": "^9.11.1",
+    "electron": "^32.1.2",
+    "electron-is-dev": "^3.0.1",
+    "eslint": "^9.11.1"
   },
   "dependencies": {
-    "picocolors": "^1.1.0"
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "helmet": "^8.0.0",
+    "path": "^0.12.7"
   }
 }

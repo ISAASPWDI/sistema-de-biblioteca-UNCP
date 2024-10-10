@@ -4,6 +4,6 @@ contextBridge.exposeInMainWorld('myAPI', {
         ipcRenderer.on('toggle-theme', (event, isDark) => {
             const body = document.body
             isDark ? body.classList.add('dark-theme') : body.classList.remove('dark-theme')
-        });
+        })
     }
-});
+})

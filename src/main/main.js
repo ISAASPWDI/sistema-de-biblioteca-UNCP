@@ -1,14 +1,16 @@
 const { app, BrowserWindow } = require('electron')
+const path = require('path')
 const { setMenu } = require('./menu.js')
+const { PORT } = require('./app.js')
+const { getUsers } = require('./database.js')
 async function init() {
     const { default: isDev } = await import('electron-is-dev')
     // ... rest of your code using isDev ...
     return isDev
 }
+const isDev = init()
 
-const isDev = init();
-const path = require('path')
-const { PORT } = require('./app.js')
+
 
 // Inicia el servidor de Express
 // const server = expressApp.listen(PORT, () => {
@@ -19,6 +21,8 @@ const createWindow = () => {
     const mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        minWidth: 768, // Establece el ancho mínimo
+        minHeight: 600, // Puedes ajustar el alto mínimo si lo deseas
         webSecurity: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
@@ -32,8 +36,13 @@ const createWindow = () => {
     setMenu(mainWindow)
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
     createWindow()
+    try {
+        await getUsers()  // Esto ejecutará la consulta a la base de datos cuando Electron esté listo
+    } catch (error) {
+        console.error('Error obteniendo los usuarios:', error)
+    }
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })

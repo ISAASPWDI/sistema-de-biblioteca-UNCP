@@ -10,6 +10,9 @@
 }
 /***************************** BootStrap styles *****************************/
 /***************************** My styles *****************************/
+.btn-primary:active {
+    background-color: #000 !important;    
+}
 .btn{
     background-color: #0009;
     border: #0009;

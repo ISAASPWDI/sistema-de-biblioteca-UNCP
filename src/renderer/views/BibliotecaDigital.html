@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LibraMaster - Panel de Control</title>
+    <link rel="stylesheet" href="../css/style_panelControl.css">
+</head>
+<body>
+        <div class="container__2">
+            <div class="container__3">
+                <div class="sidebar">
+                    <div class="aside_top">
+                        <h2 class="titulo-biblioteca">LibraMaster</h2>
+                        <p>Sesión iniciada como: <strong>Estudiante</strong></p>
+                        <nav class="nav_panel">
+                            <ul class="menu">
+                                <li class="opciones-nav"><a href="#"><img src="../img/panel de control2.png" alt="Icono Panel" class="iconos-principales"> Panel de Control</a></li>
+                                <li class="opciones-nav"><a href="#"><img src="../img/libro.png" alt="Icono Biblioteca" class="iconos-principales"> Biblioteca Digital</a></li>
+                                <li class="opciones-nav"><a href="#"><img src="../img/wifi.png" alt="Icono Acceso Remoto" class="iconos-principales"> Acceso Remoto</a></li>
+                                <li class="opciones-nav"><a href="#"><img src="../img/favorito_2.png" alt="Icono Favoritos" class="iconos-principales"> Mis favoritos</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="box"></div>
+                    <div class="aside_bot">
+                        <div class="system">
+                            <p class="sistema">Sistema</p>
+                            <a class="ayuda" href="#"><img src="../img/ayuda y soporte.png" alt="Icono Ayuda" class="ayuda_img
+                                "> Ayuda y Soporte</a>
+                                <button  class="button-cerrar-sesion"> <img class="cerrar-sesion-icon" src="../img/flecha.png" alt="">Cerrar Sesión</button>
+                        </div>
+                    </div>
+                </div>
+        
+                <main class="main-biblioteca-digital">
+                    <header class="header">
+                        <h1>Biblioteca Digital<img class="biblioteca_icono" src="../img/libro_abierto.png" alt="biblioteca-icono"></h1>
+                    </header>
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" placeholder="Buscar libros">
+                            <img class="buscar-libros-icono" src="../img/search.png" alt="">
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropdown-btn">Todos los géneros <span>&#9662;</span></button>
+                        </div>
+                    </div>
+                    <div class="biblioteca-container">
+                        <div class="libros-container">
+                            <div class="libro libro_1">
+                                <div class="libro-header">
+                                    <h3>Libro 1</h3>
+                                    <span class="icono-favorito">&#9825;</span>
+                                </div>
+                                <p>Título<br>Nombre del autor</p>
+                            </div>
+                            <div class="libro libro_2">
+                                <div class="libro-header">
+                                    <h3>Libro 2</h3>
+                                    <span class="icono-favorito">&#9825;</span>
+                                </div>
+                                <p>Título<br>Nombre del autor</p>
+                            </div>
+                            <div class="libro libro_3">
+                                <div class="libro-header">
+                                    <h3>Libro 3</h3>
+                                    <span class="icono-favorito">&#9825;</span>
+                                </div>
+                                <p>Título<br>Nombre del autor</p>
+                            </div>
+                        </div>
+                        <div class="paginacion-container">
+                            <button class="btn anterior">
+                                <span>&lt;</span> anterior
+                            </button>
+                            <span class="contador">1/1</span>
+                            <button class="btn siguiente">
+                                siguiente <span>&gt;</span>
+                            </button>
+                        </div>
+                        
+                    </div>
+                    
+                </main>
+            </div>
+        </div>
+        
+    </div>
+</body>
+</html>

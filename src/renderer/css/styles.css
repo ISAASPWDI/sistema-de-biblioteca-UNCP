@@ -10,6 +10,25 @@
 }
 /***************************** BootStrap styles *****************************/
 /***************************** My styles *****************************/
+.btn-primary:active {
+    background-color: #000 !important;    
+}
+.btn{
+    background-color: #0009;
+    border: #0009;
+}
+.btn:hover{
+    background-color: #000;;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid #0005
+}
+.form-control:is(:hover, :active){
+    border: 2px solid #0009;
+    box-shadow: 4px 4px 4px #0007;
+}
 
 /***************************** BootStrap Media Queries *****************************/
 

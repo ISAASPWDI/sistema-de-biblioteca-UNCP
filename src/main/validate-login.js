@@ -1,0 +1,27 @@
+const { ipcMain } = require('electron');
+const fetch = require('node-fetch'); // Ensure you have node-fetch installed
+
+ipcMain.on('login-attempt', async (event, { email, password }) => {
+    try {
+        const response = await fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // Send success response back to renderer
+            event.reply('login-response', { success: true, url: data.url });
+        } else {
+            // Send error message back to renderer
+            event.reply('login-response', { success: false, message: data.message || 'Credenciales incorrectas' });
+        }
+    } catch (error) {
+        console.error('Error al realizar la solicitud de inicio de sesión:', error);
+        event.reply('login-response', { success: false, message: 'Error en el servidor' });
+    }
+});

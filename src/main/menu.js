@@ -1,5 +1,6 @@
 const { app, Menu } = require('electron')
 let isDarkTheme = true
+
 function toggleTheme(mainWindow) {
     isDarkTheme = !isDarkTheme // Cambiar el estado del tema
     mainWindow.webContents.send('toggle-theme', isDarkTheme) // Enviar mensaje al renderer

@@ -9,20 +9,18 @@ async function init() {
     return isDev
 }
 const isDev = init()
-
-
-
-// Inicia el servidor de Express
-// const server = expressApp.listen(PORT, () => {
-// console.log(`Servidor Express iniciado en http://localhost:${PORT}`)
-// });
-
+try {
+    require('electron-reload')(module, {
+        debug: true,
+        watchRenderer: true
+    });
+} catch (_) { console.log('Error loading electron-reloader'); }
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
-        minWidth: 768, // Establece el ancho mínimo
-        minHeight: 600, // Puedes ajustar el alto mínimo si lo deseas
+        width: 1500,
+        height: 800,
+        minWidth: 1500, // Establece el ancho mínimo
+        minHeight: 800, // Puedes ajustar el alto mínimo si lo deseas
         webSecurity: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
@@ -31,18 +29,14 @@ const createWindow = () => {
             enableRemoteModule: false
         }
     })
-    mainWindow.loadURL(isDev ? `http://localhost:${PORT}` : `file://${path.join(__dirname, '../build/index.html')}`)
+    // mainWindow.loadURL(isDev ? `http://localhost:${PORT}` : `file://${path.join(__dirname, '../build/index.html')}`)
     mainWindow.loadFile('./src/renderer/views/index.html')
     setMenu(mainWindow)
 }
 
 app.whenReady().then(async () => {
     createWindow()
-    try {
-        await getUsers()  // Esto ejecutará la consulta a la base de datos cuando Electron esté listo
-    } catch (error) {
-        console.error('Error obteniendo los usuarios:', error)
-    }
+
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })

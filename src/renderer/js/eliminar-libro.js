@@ -1,7 +1,8 @@
-import { initEditarLibro } from "./editar-libro.js";
-import { initEliminarLibro } from "./eliminar-libro.js";
+import { mostrarLibro } from "./mostrar-libro.js";
 
-export function initMostrarLibro() {
+export function initEliminarLibro() {
+    console.log('working!!!');
+
     mostrarLibro().then((libros) => {
         // Selecciona el contenedor donde se agregarán las tarjetas de los libros
         const libroGridCardContainer = document.querySelector('.libro-grid-card-container');
@@ -14,7 +15,7 @@ export function initMostrarLibro() {
             const libroGridCardHtml = `
             <div class="libro-grid-card col">
                 <div class="card libro">
-                    <button type="button" class="edit-click-info">
+                    <button type="button" class="delete-click-info">
                         <img src="${libro.imagen}" class="imagen-info card-img-top libro-img-size align-self-center border-bottom-img " alt="...">
                     </button>
                     
@@ -35,34 +36,22 @@ export function initMostrarLibro() {
                     </div>
                 </div>
             </div>`;
-            
+
             libroGridCardContainer.innerHTML += libroGridCardHtml;
         });
-
-        // Una vez que todas las tarjetas estén en el DOM, inicializa los eventos de edición
-        initEditarLibro();
-
-    });
+        document.querySelectorAll('.libro-grid-card .delete-click-info').forEach(($deleteButton) => {
+            $deleteButton.addEventListener('click', (e) => {
+                showDeleteBookModal();
+            });
+        });
+    })
 }
 
-// Función para consultar los libros desde la API
-export async function mostrarLibro() {
-    try {
-        const response = await fetch('http://localhost:3000/libros', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            }
-        });
+function showDeleteBookModal() {
+    const deleteBookModal = new bootstrap.Modal(document.getElementById('deleteBookModal'));
+    deleteBookModal.show();
+}
 
-        if (!response.ok) {
-            throw new Error('Error al consultar los libros');
-        }
+function handleDelete(){
 
-        const libros = await response.json();
-        return libros;
-    } catch (error) {
-        console.error('Error al obtener los libros:', error);
-        return;
-    }
 }

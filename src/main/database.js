@@ -1,7 +1,7 @@
 const mssql = require('mssql')
 
 const config = {
-    server: 'DESKTOP-7NAGFGR',
+    server: 'ISAASPWDI',
     database: 'bibliotecauncp',
     user: 'prueba1',
     password: '12345',

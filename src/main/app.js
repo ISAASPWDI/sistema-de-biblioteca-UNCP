@@ -1,3 +1,4 @@
+//IMPORTACIONES
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
@@ -6,6 +7,7 @@ const bcrypt = require('bcryptjs');
 const { mssql, getConnection } = require('./database.js')
 const multer = require('multer')
 
+//MULTER
 // Configurar multer para almacenar las imágenes
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -34,8 +36,9 @@ const upload = multer({
         fileSize: 5 * 1024 * 1024 // Límite de 5MB
     }
 })
-// Resto de tu código...
+//CREAR SERVIDOR
 const app = express()
+//CORS
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -59,15 +62,18 @@ app.use(
     })
 )
 
-
+//MIDDLEWARES
 app.use(express.static(path.join(__dirname, '..', 'renderer')));
 console.log(path.join(__dirname, '..', 'renderer'));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'renderer', 'uploads')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
+//PUERTO A ESCUCHAR
 const PORT = process.env.PORT || 3000
 
+//RUTAS (modificar MVC)
+//Login del sistema (modificar username)
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -81,34 +87,26 @@ app.post('/login', async (req, res) => {
             console.log('CREDENCIALES');
             return res.status(400).json({ message: 'Credenciales incorrectas' });
         }
-
+        
         const user = result.recordset[0]; // Obtener el único usuario
 
         // Verificar si la contraseña está hasheada
-        const storedPassword = user.contraseña_hash;
+        const storedPassword = user.contrasena_hash;
         const isHashed = storedPassword.startsWith('$2a$');
 
-        const passwordMatch = isHashed
-            ? await bcrypt.compare(password, storedPassword) // Si está hasheada, usar bcrypt
-            : password === storedPassword;
-
-        if (!user) {
-            console.log('CREDENCIALES');
-            return res.status(200).json({ success: false, message: 'Credenciales incorrectas' });
-        }
-
+        isHashed ? await bcrypt.compare(password, storedPassword) : password === storedPassword;
 
         // Si la contraseña no está hasheada, hashearla y actualizarla
-        if (!user.contraseña_hash.startsWith('$2a$')) {
+        if (!user.contrasena_hash.startsWith('$2a$')) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
 
             await pool.request()
                 .input('email', mssql.NVarChar, email)
-                .input('contraseña_hash', mssql.NVarChar, hashedPassword)
+                .input('contrasena_hash', mssql.NVarChar, hashedPassword)
                 .query(`
                     UPDATE Usuarios
-                    SET contraseña_hash = @contraseña_hash
+                    SET contrasena_hash = @contrasena_hash
                     WHERE email = @email
                 `);
 
@@ -133,7 +131,7 @@ app.post('/logout', (req, res) => {
     // For now, we'll just send a success response
     res.json({ url: 'http://localhost:3000/views/index.html' })
 })
-//Mostrar Libro
+//Mostrar Libro (modificar)
 
 app.get('/libros', async(req,res)=>{
     try {
@@ -147,7 +145,7 @@ app.get('/libros', async(req,res)=>{
 })
 //Agregando libro
 app.post('/libros', upload.single('imagen'), async (req, res) => {
-    const { titulo, autor, genero, url } = req.body
+    const { titulo, autor, genero, url, cantidad } = req.body
     const imagen = req.file ? `/uploads/${req.file.filename}` : null
     const generoJSON = JSON.stringify({ genero: genero });
     try {
@@ -158,9 +156,15 @@ app.post('/libros', upload.single('imagen'), async (req, res) => {
             .input('genero', mssql.NVarChar, generoJSON)
             .input('imagen', mssql.NVarChar, imagen)
             .input('url', mssql.NVarChar, url)
+            .input('cantidad', mssql.Int, cantidad)
             .query(`
-                INSERT INTO Libros (titulo, autor, genero, url, imagen) 
-                VALUES (@titulo, @autor, @genero, @url, @imagen)
+                EXEC AgregarLibro 
+                        @titulo,
+                        @autor,
+                        @genero,
+                        @url,
+                        @imagen,
+                        @cantidad;
             `);
         res.json({ message: 'Libro agregado con éxito' });
 
@@ -168,21 +172,60 @@ app.post('/libros', upload.single('imagen'), async (req, res) => {
         console.error('Error al insertar libro:', error);
         res.status(500).json({ message: 'Error en el servidor' });
     }
+})
+//Editando Libro
+app.put('/libros', upload.single('imagen'), async (req, res) => {
+    const { id_libro_info, titulo, autor, genero, url, cantidad } = req.body;
+    const imagen = req.file ? `/uploads/${req.file.filename}` : null;
+    
+    console.log('Datos recibidos:', req.body);
+    console.log('Archivo recibido:', req.file);
+
+    try {
+        const pool = await getConnection();
+        await pool.request()
+            .input('id_libro', mssql.Int, parseInt(id_libro_info))
+            .input('titulo', mssql.NVarChar, titulo)
+            .input('autor', mssql.NVarChar, autor) 
+            .input('genero', mssql.NVarChar, genero)
+            .input('imagen', mssql.NVarChar, imagen)
+            .input('url', mssql.NVarChar, url)
+            .input('cantidad', mssql.Int, cantidad)
+            .query(`
+                EXEC EditarLibro
+                        @id_libro,
+                        @titulo,
+                        @autor,
+                        @genero,
+                        @url,
+                        @imagen,
+                        @cantidad;
+            `);
+        
+        res.json({ message: 'Libro editado con éxito' });
+
+    } catch (error) {
+        console.error('Error al editar libro:', error);
+        res.status(500).json({ message: 'Error en el servidor', error: error.message });
+    }
 });
 
-
+//Interfaz admin
 app.get('/interfazAdmin.html', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'renderer', 'views', 'interfazAdmin', 'interfazAdmin.html'))
 
 })
+//Interfaz estudiante
 app.get('/interfazStudent.html', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'renderer', 'views', 'interfazStudent', 'interfazStudent.html'))
 })
+
+//Servidor
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)
 })
 
-
+//Exportaciones
 module.exports = {
     app,
     PORT

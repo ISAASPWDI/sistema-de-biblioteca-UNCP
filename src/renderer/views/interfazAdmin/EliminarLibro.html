@@ -3,17 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Ajuste de Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
-    script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
-    style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
-    font-src 'self' https://fonts.gstatic.com; 
-    connect-src 'self' http://localhost:3000;
-    img-src 'self' data:;">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <title>Admin Interface</title>
 </head>
 
@@ -87,13 +82,14 @@
                 <div
                     class="biblioteca-container ms-1 mt-4 me-1 d-flex justify-content-between row edit-section-size overflow-x-hidden overflow-y-hidden">
                     <div class="scrollable-container col-12 overflow-y-scroll overflow-x-hidden h-100 pe-0">
-                        <h4 class="ps-5 pt-3"> <b>Eliminar Libro</b> </h4>
-                        <div class="search-container d-flex justify-content-between ps-5 pt-3 pe-5 pb-3 sticky-top bg-white">
+                        <h4 class="ps-5 pt-3 mt-3"> <b>Eliminar Libro</b> </h4>
+                        <div
+                            class="search-container d-flex justify-content-between ps-5 pt-3 pe-5 pb-3 sticky-top bg-white">
                             <div class="search-box">
                                 <input type="text" placeholder="Buscar libros">
                                 <img class="buscar-libros-icono" src="/assets/img/buscar.png" alt="">
                             </div>
-                        
+
                             <div class="btn-group">
                                 <button class="btn btn-secondary btn-lg dropdown-toggle dropdown-btn" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,7 +102,7 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <div class="libros-container row col-12 ps-5 pe-2 pb-3 mb-4 mt-0">
                             <div class="libro-grid-card-container row row-cols-1 row-cols-md-3 g-4 mt-0">
                             </div>
@@ -128,6 +124,22 @@
         </div>
     </div>
 
+    </div>
+    <div class="modal fade" id="deleteBookModal" tabindex="-1" aria-labelledby="deleteBookModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteBookModalLabel">Eliminar Libro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    El libro ha sido editado correctamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="/js/script.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

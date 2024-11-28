@@ -3,17 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- Ajuste de Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
-    script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
-    style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
-    font-src 'self' https://fonts.gstatic.com; 
-    connect-src 'self' http://localhost:3000;
-    img-src 'self' data:;">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
     <title>Admin Interface</title>
 </head>
 
@@ -87,13 +82,14 @@
                 <div
                     class="biblioteca-container ms-1 mt-4 me-1 d-flex justify-content-between row edit-section-size overflow-x-hidden overflow-y-hidden">
                     <div class="scrollable-container col-12 overflow-y-scroll overflow-x-hidden h-100 pe-0">
-                        <h4 class="ps-5 pt-3"> <b>Editar Libro</b> </h4>
-                        <div class="search-container d-flex justify-content-between ps-5 pt-3 pe-5 pb-3 sticky-top bg-white">
+                        <h4 class="ps-5 pt-3 mt-3"> <b>Editar Libro</b> </h4>
+                        <div
+                            class="search-container d-flex justify-content-between ps-5 pt-3 pe-5 pb-3 sticky-top bg-white">
                             <div class="search-box">
                                 <input type="text" placeholder="Buscar libros">
                                 <img class="buscar-libros-icono" src="/assets/img/buscar.png" alt="">
                             </div>
-                        
+
                             <div class="btn-group">
                                 <button class="btn btn-secondary btn-lg dropdown-toggle dropdown-btn" type="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,7 +102,7 @@
                                 </ul>
                             </div>
                         </div>
-                        
+
                         <div class="libros-container row col-12 ps-5 pe-2 pb-3 mb-4 mt-0">
                             <div class="libro-grid-card-container row row-cols-1 row-cols-md-3 g-4 mt-0">
                             </div>
@@ -129,6 +125,88 @@
     </div>
 
     </div>
+    <div class="modal fade" id="editBookModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="editBookLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editBookLabel">Editar</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="scrollable-container col-12 h-100 ps-5 pt-4 pe-5">
+                        <h4> <b>Edita el Libro</b></h4>
+                        <p class="fs-5 mb-3">
+                            Por favor use los formatos adecuados para añadir un libro al sistema
+                        </p>
+                        <form class="row g-2 edit-book-form">
+                            <div class="d-flex flex-column col-6 mb-3">
+                                <label for="titulo" class="form-label fs-5"><b>Título del Libro</b></label>
+                                <input type="text" class="form-control input-crud-style" id="titulo" name="titulo"
+                                    placeholder="Título ..."
+                                    title="El título puede contener letras, números, espacios y los caracteres ., -"
+                                    required>
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label for="autor" class="form-label fs-5"><b>Autor</b></label>
+                                <input type="text" class="form-control input-crud-style" id="autor" name="autor"
+                                    placeholder="Autor ..."
+                                    title="El nombre del autor solo debe contener letras y espacios" required>
+                            </div>
+                            <div class="col-3 mb-3">
+                                <label for="genero" class="form-label fs-5"><b>Género</b></label>
+                                <input type="text" class="form-control input-crud-style" id="genero" name="genero"
+                                    placeholder="Género ..."
+                                    title="El género debe contener solo letras, espacios o guiones" required>
+                            </div>
+                            <div class="col-9 mb-3">
+                                <label for="formFile" class="form-label fs-5"><b>Subir imagen del libro</b></label>
+                                <input class="form-control input-crud-style" type="file" id="formFile">
+                            </div>
+                            <div class="col-10 mb-3">
+                                <label for="link" class="form-label fs-5"><b>Link del Recurso</b></label>
+                                <input type="url" class="form-control input-crud-style" id="link" name="link"
+                                    placeholder="Link ..." title="Ingrese un enlace válido, como https://example.com">
+                            </div>
+                            <div class="col-2 mb-3">
+                                <label for="cantidad" class="form-label fs-5"><b>Cantidad</b></label>
+                                <input type="number" id="cantidad" class="form-control input-crud-style" value="1"
+                                    min="1" step="1">
+                            </div>
+                            <button type="submit" class="container btn btn-primary add-book-btn-purple mt-3">
+                                <img class="crud-icon-size me-1" src="/assets/img/editar-libro.png" alt="">
+                                <b>Editar Libro</b>
+                            </button>
+                        </form>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger mb-3 me-3" data-bs-dismiss="modal"><b>Cerrar</b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Edición Exitosa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    El libro ha sido editado correctamente.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="/js/script.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

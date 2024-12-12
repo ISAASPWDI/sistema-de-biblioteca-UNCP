@@ -55,7 +55,7 @@ function populateEditModal($card) {
     const titulo = $card.querySelector('.card-title').textContent.trim();
     const genero = $card.querySelector('.genero-info').textContent.replace('Género: ', '').trim();
     const autor = $card.querySelector('.autor-info').textContent.replace('Autor: ', '').trim();
-    const link = $card.querySelector('.link-info .link-info-style').href;
+    const link = $card.querySelector('.book-url-info').href;
     const cantidad = $card.querySelector('.cantidad-info').textContent.replace('Cantidad: ', '').trim();
     const idLibro = $card.querySelector('.id-libro-info').textContent.replace('ID del Libro: ', '').trim();
 

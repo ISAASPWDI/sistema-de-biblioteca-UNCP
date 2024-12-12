@@ -24,7 +24,7 @@ export function initMostrarLibro() {
                         <p class="card-text genero-info light-grey-color-style mb-2">Género: ${libro.genero_genre}</p>
                         <p class="card-text autor-info light-grey-color-style mb-2">Autor: ${libro.autor}</p>
                         <p class="card-text cantidad-info orange-color-style mb-3">Cantidad: ${libro.cantidad}</p>
-                        <a href="${libro.url}">
+                        <a href="${libro.url}" class="book-url-info">
                             <button type="button" class="btn btn-dark link-info link-info-style"> Link del recurso <img class="ms-2"
                         src="/assets/img/link.png" alt="Icono cerrar-sesion" width="20px" height="20px">
                             </button>

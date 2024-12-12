@@ -273,7 +273,21 @@ body {
 
 }
 
-
+.agregar-estudiante-btn{
+    height: 47px;
+    background-color: #2B9EA2 !important;
+    box-shadow: -2px 3px 19px 0px rgba(43, 158, 162, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(43, 158, 162, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(43, 158, 162, 0.75);
+    border-color: rgb(43, 158, 162);
+}
+.agregar-estudiante-btn:hover{
+    border-color:rgb(43, 158, 162);
+    opacity: 80%;
+}
+.agregar-estudiante-btn:active{
+    border-color:rgb(43, 158, 162) !important;
+}
 .quote {
     background-color: #755CDE !important;
     box-shadow: -2px 3px 19px 0px rgba(117, 92, 222, 0.75);

@@ -3,18 +3,7 @@ const path = require('path')
 const { setMenu } = require('./menu.js')
 const { PORT } = require('./app.js')
 const { getUsers } = require('./database.js')
-async function init() {
-    const { default: isDev } = await import('electron-is-dev')
-    // ... rest of your code using isDev ...
-    return isDev
-}
-const isDev = init()
-try {
-    require('electron-reload')(module, {
-        debug: true,
-        watchRenderer: true
-    });
-} catch (_) { console.log('Error loading electron-reloader'); }
+
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
         width: 1500,

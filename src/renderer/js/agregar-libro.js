@@ -25,6 +25,7 @@ async function handleAdd() {
     if ($imgLibro) {
         formData.append('imagen', $imgLibro)
     }
+
     try {
         const res = await fetch('http://localhost:3000/libros',{
             method: 'POST',

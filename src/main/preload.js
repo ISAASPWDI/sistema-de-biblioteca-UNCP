@@ -1,9 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
-contextBridge.exposeInMainWorld('myAPI', {
-    toggleTheme: () => {
-        ipcRenderer.on('toggle-theme', (event, isDark) => {
-            const body = document.body
-            isDark ? body.classList.add('dark-theme') : body.classList.remove('dark-theme')
-        })
-    }
-})
+contextBridge.exposeInMainWorld('favoritesAPI', {
+    getFavorites: () => ipcRenderer.invoke('favorites:get'),
+    addFavorite: (favorite) => ipcRenderer.invoke('favorites:add', favorite),
+    removeFavorite: (id_libro) => ipcRenderer.invoke('favorites:remove', id_libro),
+});

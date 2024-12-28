@@ -71,7 +71,8 @@
 
                     <div class="btn-group">
                         <button class="btn btn-secondary agregar-estudiante-btn" type="button">
-                            <img src="/assets/img/agregar-estudiante.png" class="me-1" width="20px" height="20px" alt=""> <b>Agregar Estudiante</b> 
+                            <img src="/assets/img/agregar-estudiante.png" class="me-1" width="20px" height="20px"
+                                alt=""> <b>Agregar Estudiante</b>
                         </button>
                     </div>
                 </div>
@@ -81,10 +82,10 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Correo</th>
-                                    <th>Rol</th>
+                                    <th class="ps-5">Correo</th>
+                                    <th class="ps-4">Rol</th>
                                     <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <th class="ps-5">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="user-table-body">
@@ -92,19 +93,156 @@
                             </tbody>
                         </table>
                         <div class="d-flex justify-content-between align-items-center paginacion-container col-12 p-4">
-                            <button type="button" class="btn btn-primary prev-btn-style"><span>&lt;</span> anterior</button>
+                            <button type="button" class="btn btn-primary prev-btn-style"><span>&lt;</span>
+                                anterior</button>
                             <span class="contador">1/1</span>
-                            <button type="button" class="btn btn-warning next-btn-style">siguiente <span>&gt;</span></button>
+                            <button type="button" class="btn btn-warning next-btn-style">siguiente
+                                <span>&gt;</span></button>
                         </div>
                     </div>
                 </div>
+            </main>
         </div>
-        </main>
-    </div>
     </div>
 
+    <!-- Modal para Agregar Estudiante -->
+    <div class="modal fade" id="agregarEstudianteModal" tabindex="-1" aria-labelledby="agregarEstudianteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="agregarEstudianteModalLabel">Agregar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pb-0">
+                    <form class="row">
+                        <div class="col-6 mb-3">
+                            <label for="nombre-input" class="form-label">Nombre</label>
+                            <input type="text" class="form-control input-crud-style" id="nombre-input"
+                                pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="password-input d-flex justify-content-between">
+                                <label for="contrasenia-input" class="form-label">Contraseña</label>
+                                <div class="form-check">
+                                    <input class="form-check-input addUserPasswordInputCheckBox" type="checkbox"
+                                        value="" id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Mostrar
+                                    </label>
+                                </div>
+                            </div>
+
+                            <input type="password" class="form-control input-crud-style addUserPasswordInput"
+                                pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" id="contrasenia-input" required>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="correo-input" class="form-label">Correo</label>
+                            <input type="email" class="form-control input-crud-style" id="correo-input" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="rol-input" class="form-label">Rol</label>
+                            <select class="form-select input-crud-style" id="rol-input" required>
+                                <option value="admin">admin</option>
+                                <option value="estudiante">estudiante</option>
+                            </select>
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <label for="estado-input" class="form-label">Estado</label>
+                            <select class="form-select input-crud-style" id="estado-input" required>
+                                <option value="activo">activo</option>
+                                <option value="inactivo">inactivo</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer justify-content-center mb-2 flex-column">
+                            <button type="submit" class="btn btn-primary submit-new-user add-user-btn">
+                                <img class="crud-icon-size me-1" src="/assets/img/agregar-usuario-img.png" alt="">
+                                <b>Agregar Usuario</b>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal para Editar Usuario -->
+    <div class="modal fade" id="editarUsuarioModal" tabindex="-1" aria-labelledby="editarUsuarioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editarUsuarioModalLabel">Editar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pb-0">
+                    <form class="row" id="editar-usuario-form">
+                        <input type="hidden" id="editar-usuario-id">
+                        <div class="col-6 mb-3">
+                            <label for="editar-nombre" class="form-label mb-2">Nombre</label>
+                            <input type="text" class="form-control input-crud-style" id="editar-nombre" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <div class="password-input d-flex justify-content-between">
+                                <label for="editar-contrasenia" class="form-label">Contraseña</label>
+                                <div class="form-check">
+                                    <input class="form-check-input editUserCheckbox" type="checkbox" value=""
+                                        id="flexCheckDefault">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Mostrar
+                                    </label>
+                                </div>
+                            </div>
+                            <input type="password" class="form-control input-crud-style" id="editar-contrasenia">
+                        </div>
+                        <div class="col-8 mb-3">
+                            <label for="editar-correo" class="form-label">Correo</label>
+                            <input type="email" class="form-control input-crud-style" id="editar-correo" required>
+                        </div>
+                        <div class="col-4 mb-3">
+                            <label for="editar-rol" class="form-label">Rol</label>
+                            <select class="form-select input-crud-style" id="editar-rol" required>
+                                <option value="estudiante">estudiante</option>
+                                <option value="admin">admin</option>
+                            </select>
+                        </div>
+                        <div class="modal-footer justify-content-center pb-3 flex-column">
+                            <button type="button" class="btn btn-primary" id="guardar-cambios-usuario">
+                                <img class="crud-icon-size me-1" src="/assets/img/editar-libro.png" alt="">
+                                <b>Editar usuario</b>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
     </div>
 
+    <!-- Modal de Confirmación para Eliminar Usuario -->
+    <div class="modal fade" id="eliminarUsuarioModal" tabindex="-1" aria-labelledby="eliminarUsuarioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eliminarUsuarioModalLabel">Confirmar Eliminación</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="eliminar-usuario-id">
+                    <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                    <p class="text-danger">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmar-eliminar-usuario">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="/js/script.js" type="module"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

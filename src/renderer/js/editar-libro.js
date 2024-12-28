@@ -6,13 +6,16 @@ export function initEditarLibro() {
     document.querySelectorAll('.libro-grid-card .edit-click-info').forEach(($editButton) => {
         $editButton.addEventListener('click', (e) => {
             // Obtener el card padre del botón de edición
+            const modal = document.getElementById('editBookModal');
             const $card = $editButton.closest('.libro-grid-card .card');
-            
+            if (modal) {
             // Poblar el modal de edición con los datos actuales del libro
-            populateEditModal($card);
-            
+                populateEditModal($card);
             // Mostrar el modal de edición
-            showEditBookModal();
+                showEditBookModal();
+            } else {
+                console.warn('El modal no está presente en esta sección.');
+            }
         });
     });
 
@@ -32,11 +35,7 @@ export function initEditarLibro() {
 function populateEditModal($card) {
     // Verificar que el modal existe
     const modal = document.getElementById('editBookModal');
-    if (!modal) {
-        console.error('Modal no encontrado');
-        return;
-    }
-
+    
     // Obtener los elementos del modal con verificación
     const $modalTitulo = modal.querySelector('#titulo');
     const $modalAutor = modal.querySelector('#autor');
@@ -45,11 +44,7 @@ function populateEditModal($card) {
     const $modalCantidad = modal.querySelector('#cantidad');
 
     // Verificar que los elementos existen antes de establecer valores
-    if (!$modalTitulo || !$modalAutor || !$modalGenero || 
-        !$modalLink || !$modalCantidad) {
-        console.error('Uno o más elementos del modal no se encontraron');
-        return;
-    }
+    
 
     // Extraer datos de la tarjeta
     const titulo = $card.querySelector('.card-title').textContent.trim();

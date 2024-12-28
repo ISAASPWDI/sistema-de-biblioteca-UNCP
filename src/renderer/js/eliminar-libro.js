@@ -1,57 +1,73 @@
-import { mostrarLibro } from "./mostrar-libro.js";
 
 export function initEliminarLibro() {
-    console.log('working!!!');
+    const libroGridCardContainer = document.querySelector('.libro-grid-card-container');
+    const isEliminarSection = document.querySelector('.eliminar-libros');
 
-    mostrarLibro().then((libros) => {
-        // Selecciona el contenedor donde se agregarán las tarjetas de los libros
-        const libroGridCardContainer = document.querySelector('.libro-grid-card-container');
+    if (!isEliminarSection) return; // Si no estás en la sección de eliminar, no hacer nada
 
-        // Limpia el contenedor antes de cargar nuevos libros (opcional)
-        libroGridCardContainer.innerHTML = '';
+    let libroIdParaEliminar; // Variable para almacenar el ID del libro a eliminar
+    //Definir modal para que funcione el scope
+    const eliminarModal = new bootstrap.Modal(document.getElementById('eliminarModal'));
 
-        // Genera las tarjetas dinámicamente
-        libros.forEach((libro) => {
-            const libroGridCardHtml = `
-            <div class="libro-grid-card col">
-                <div class="card libro">
-                    <button type="button" class="delete-click-info">
-                        <img src="${libro.imagen}" class="imagen-info card-img-top libro-img-size align-self-center border-bottom-img " alt="...">
-                    </button>
-                    
-                    <div class="card-body">
-                        <p class="card-text id-libro-info mb-2 light-grey-color-style">ID del Libro: ${libro.id_libro}</p>
-                        <h5 class="card-title brown-color-style">${libro.titulo}</h5>
-                        <p class="card-text genero-info light-grey-color-style mb-2">Género: ${libro.genero_genre}</p>
-                        <p class="card-text autor-info light-grey-color-style mb-2">Autor: ${libro.autor}</p>
-                        <p class="card-text cantidad-info orange-color-style mb-3">Cantidad: ${libro.cantidad}</p>
-                        <a href="${libro.url}">
-                            <button type="button" class="btn btn-dark link-info link-info-style"> Link del recurso <img class="ms-2"
-                        src="/assets/img/link.png" alt="Icono cerrar-sesion" width="20px" height="20px">
-                            </button>
-                        </a>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-body-secondary light-grey-color-style">Añadido: ${libro.created_at.split('T')[0]}</small>
-                    </div>
-                </div>
-            </div>`;
+    // Agregar evento de clic a cada botón de eliminación
+    libroGridCardContainer.addEventListener('click', (event) => {
+        if (event.target.classList.contains('delete-book-btn-def')) {
+            const libroCard = event.target.closest('.libro-grid-card');
+            libroIdParaEliminar = libroCard.querySelector('.id-libro-info').textContent.split(': ')[1];
+            // Mostrar el modal
+            eliminarModal.show();
+        }
+    });
 
-            libroGridCardContainer.innerHTML += libroGridCardHtml;
-        });
-        document.querySelectorAll('.libro-grid-card .delete-click-info').forEach(($deleteButton) => {
-            $deleteButton.addEventListener('click', (e) => {
-                showDeleteBookModal();
+    // Manejar la confirmación de eliminación
+
+    document.getElementById('confirmarEliminacion').addEventListener('click', () => {
+        if (libroIdParaEliminar) {
+            eliminarLibro(libroIdParaEliminar).then(() => {
+                // Use a more reliable selector
+                const libroCard = Array.from(document.querySelectorAll('.id-libro-info'))
+                    .find(el => el.textContent.includes(libroIdParaEliminar))
+                    ?.closest('.libro-grid-card');
+
+                if (libroCard) {
+                    libroCard.remove(); // Eliminar la tarjeta del DOM
+                }
+            }).catch(error => {
+                console.error('Error en la eliminación:', error);
+                // Optionally show an error message to the user
             });
-        });
-    })
-}
+        }
+    });
 
-function showDeleteBookModal() {
-    const deleteBookModal = new bootstrap.Modal(document.getElementById('deleteBookModal'));
-    deleteBookModal.show();
-}
+    // Agregar botones de eliminación a las tarjetas de libros
+    libroGridCardContainer.querySelectorAll('.libro-grid-card').forEach(card => {
+        const deleteBtnHtml = `
+            <button type="button" class="btn btn-danger delete-book-btn-def ms-2">Eliminar</button>
+        `;
+        // Seleccionamos el contenedor del botón de Link del recurso
+        const linkButtonContainer = card.querySelector('.book-url-info');
 
-function handleDelete(){
+        // Insertamos el botón de eliminar justo después del botón de Link del recurso
+        linkButtonContainer.insertAdjacentHTML('afterend', deleteBtnHtml);
+    });
+    // Función para eliminar un libro
+    async function eliminarLibro(id) {
+        try {
+            const response = await fetch(`http://localhost:3000/libros/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            });
 
+            if (!response.ok) {
+                throw new Error('Error al eliminar el libro');
+            } else {
+                alert('Libro eliminado')
+                eliminarModal.hide()
+            }
+        } catch (error) {
+            console.error('Error al eliminar el libro:', error);
+        }
+    }
 }

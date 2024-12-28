@@ -89,18 +89,6 @@
                                 <input type="text" placeholder="Buscar libros">
                                 <img class="buscar-libros-icono" src="/assets/img/buscar.png" alt="">
                             </div>
-
-                            <div class="btn-group">
-                                <button class="btn btn-secondary btn-lg dropdown-toggle dropdown-btn" type="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Todos los géneros
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-style">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                </ul>
-                            </div>
                         </div>
 
                         <div class="libros-container row col-12 ps-5 pe-2 pb-3 mb-4 mt-0">
@@ -145,19 +133,19 @@
                                 <input type="text" class="form-control input-crud-style" id="titulo" name="titulo"
                                     placeholder="Título ..."
                                     title="El título puede contener letras, números, espacios y los caracteres ., -"
-                                    required>
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-/@:$,;]+" required>
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="autor" class="form-label fs-5"><b>Autor</b></label>
                                 <input type="text" class="form-control input-crud-style" id="autor" name="autor"
                                     placeholder="Autor ..."
-                                    title="El nombre del autor solo debe contener letras y espacios" required>
+                                    title="El nombre del autor solo debe contener letras y espacios" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
                             </div>
                             <div class="col-3 mb-3">
                                 <label for="genero" class="form-label fs-5"><b>Género</b></label>
                                 <input type="text" class="form-control input-crud-style" id="genero" name="genero"
                                     placeholder="Género ..."
-                                    title="El género debe contener solo letras, espacios o guiones" required>
+                                    title="El género debe contener solo letras, espacios o guiones" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s\-/@:$,;]+" required>
                             </div>
                             <div class="col-9 mb-3">
                                 <label for="formFile" class="form-label fs-5"><b>Subir imagen del libro</b></label>

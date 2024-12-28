@@ -87,24 +87,25 @@
                                 <label for="titulo" class="form-label fs-5"><b>Título del Libro</b></label>
                                 <input type="text" class="form-control input-crud-style" id="titulo" name="titulo"
                                     placeholder="Título ..."
-                                    title="El título puede contener letras, números, espacios y los caracteres ., -"
+                                    title="El título puede contener letras, números, espacios y los caracteres ., -" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"  
                                     required>
                             </div>
                             <div class="col-6 mb-3">
                                 <label for="autor" class="form-label fs-5"><b>Autor</b></label>
                                 <input type="text" class="form-control input-crud-style" id="autor" name="autor"
                                     placeholder="Autor ..."
-                                    title="El nombre del autor solo debe contener letras y espacios" required>
+                                    title="El nombre del autor solo debe contener letras y espacios"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"  required>
                             </div>
                             <div class="col-3 mb-3">
                                 <label for="genero" class="form-label fs-5"><b>Género</b></label>
                                 <input type="text" class="form-control input-crud-style" id="genero" name="genero"
                                     placeholder="Género ..."
-                                    title="El género debe contener solo letras, espacios o guiones" required>
+                                    title="El género debe contener solo letras, espacios o guiones" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+"  required>
                             </div>
                             <div class="col-9 mb-3">
                                 <label for="formFile" class="form-label fs-5"><b>Subir imagen del libro</b></label>
-                                <input class="form-control input-crud-style" type="file" id="formFile">
+                                <input class="form-control input-crud-style" type="file" id="formFile" required>
                             </div>
                             <div class="col-10 mb-3">
                                 <label for="link" class="form-label fs-5"><b>Link del Recurso</b></label>

@@ -26,6 +26,50 @@
     -webkit-box-shadow: -2px 3px 19px 0px rgba(187, 45, 59, 0.75);
     -moz-box-shadow: -2px 3px 19px 0px rgba(187, 45, 59, 0.75);
 }
+.btn-danger:hover{
+    opacity: 80%;
+}
+.btn-danger:active{
+    background-color: #9e2330 !important;
+}
+.btn-success{
+    font-weight: bold;
+    background-color: rgb(154, 202, 71);
+    border-color:rgb(154, 202, 71);
+    box-shadow: -2px 3px 19px 0px rgba(154, 202, 71, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(154, 202, 71, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(154, 202, 71, 0.75);
+}
+.btn-success:hover{
+    font-weight: bold;
+    background-color: rgb(154, 202, 71);
+    border-color:rgb(154, 202, 71);
+    opacity: 80%;
+}
+.btn-success:active{
+    font-weight: bold;
+    background-color: rgb(154, 202, 71) !important;
+    border-color:rgb(154, 202, 71) !important;
+}
+.btn-danger-inactive{
+    background-color: rgb(123, 123, 123);
+    border-color:rgb(123, 123, 123);
+    color: rgb(255,255,255);
+    box-shadow: -2px 3px 19px 0px rgba(123, 123, 123, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(123, 123, 123, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(123, 123, 123, 0.75);
+}
+.btn-danger-inactive:hover{
+    background-color: rgb(123, 123, 123);
+    border-color:rgb(123, 123, 123);
+    opacity: 80%;
+    color: rgb(255,255,255);
+}
+.btn-danger-inactive:active{
+    background-color: rgb(123, 123, 123) !important;
+    border-color: rgb(123, 123, 123) !important;
+    color: rgb(255,255,255) !important;
+}
 /***************************** My styles *****************************/
 /* PANEL DE CONTROL */
 
@@ -166,8 +210,64 @@ body {
 .img-style{
     width: 50px !important;
 }
+.welcome{
+    color: rgb(33, 112, 147);
+}
+.margin-error{
+    margin-left: 150px !important;
+}
+.login-label{
+    color: rgb(33, 112, 147);
+    font-size: 20px;
+}
+.input-login-style{
+    height: 68px;
+    border: 2.5px solid rgb(33, 112, 147);
+    border-radius: 5px;
+    background-color: rgb(243, 250, 253);
+    color: rgb(33, 112, 147);
+}
+.input-login-style:focus{
+    color: rgb(33, 112, 147);
+    border: 2.5px solid rgb(78, 184, 221) !important;
+    border-radius: 5px;
+    background-color: rgb(243, 250, 253);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1) !important; 
+}
+.input-login-style::placeholder{
+    color: rgb(33, 112, 147);
+}
+.show-password-style{
+    color: rgb(33, 112, 147);
+}
+.login-background{
+    background-color: rgb(239, 243, 244);
+}
+.login-btn{
+    height: 65px;
+    border-radius: 5px;
+    background-color: rgb(78, 184, 221);
+    border-color:rgb(78, 184, 221) ;
+    box-shadow: 0px 2px 10px rgba(78, 184, 221, 0.5);
+}
+.login-btn:hover{
+    background-color: rgb(78, 184, 221);
+    border-color:rgb(78, 184, 221) ;
+    opacity: 80%;
+}
+.login-btn:active{
+    background-color: rgb(78, 184, 221) !important;
+    border-color:rgb(78, 184, 221) !important;
+    opacity: 100%;
+}
+.alert-danger{
+    width: 400px !important;
+    height: 380px !important;
+}
 .login-form{
-    width: 22rem;
+    font-family: "Lilita One", sans-serif;
+    width: 28rem;
+    background-color: rgb(255,255,255);
 }
 .mis-favoritos-img-size{
     width: 40px !important;
@@ -243,6 +343,7 @@ body {
 }
 
 .tarjetas {
+    font-family: "Lilita One", sans-serif;
     display: flex;
     justify-content: center;
     gap: 20px;
@@ -303,6 +404,13 @@ body {
     -webkit-box-shadow: -2px 3px 19px 0px rgba(245, 165, 96, 0.75);
     -moz-box-shadow: -2px 3px 19px 0px rgba(245, 165, 96, 0.75);
 
+}
+
+.administradores{
+    background-color: #55204A !important;
+    box-shadow: -2px 3px 19px 0px rgba(85, 32, 74, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(85, 32, 74, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(85, 32, 74, 0.75);
 }
 
 .books-favorites {
@@ -390,10 +498,23 @@ body {
     -webkit-box-shadow: -2px 3px 19px 0px rgba(43, 43, 43, 0.95);
     -moz-box-shadow: -2px 3px 19px 0px rgba(43, 43, 43, 0.95);
 }
+.link-info:hover{
+    color: rgb(213, 214, 214) !important;
+}
+.link-info:active{
+    color: rgb(213, 214, 214) !important;
+}
+.link-info:focus{
+    color: rgb(213, 214, 214) !important;
+}
 .libro-grid-card{
     font-family: "Lilita One", sans-serif;
     height: 700px !important;
-    width: 345px !important;
+    width: 340px !important;
+}
+.id-libro-info{
+    opacity: 0;
+    position: absolute; /* Opcional: Evitar que ocupe espacio */
 }
 .dark-brown-color-style{
     color: var(--color-dark-brown);
@@ -421,7 +542,7 @@ body {
 .libros__totales {
     display: flex;
     flex-direction: row;
-
+    font-weight: normal;
     align-items: center;
     margin: 0;
     padding: 0;
@@ -659,6 +780,7 @@ body {
     border-color:#2DB1E2 ;
     opacity: 80%;
 }
+
 .prev-btn-style:active{
     background-color: #2DB1E2 !important;
     border-color:#2DB1E2 !important;
@@ -699,7 +821,22 @@ body {
     background-color: rgb(154, 202, 71) !important;
     border-color:rgb(154, 202, 71) !important;
 }
-
+.add-user-btn{
+    background-color: rgb(223, 82, 134) ;
+    border-color:rgb(223, 82, 134) ;
+    box-shadow: -2px 3px 19px 0px rgba(223, 82, 134, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(223, 82, 134, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(223, 82, 134, 0.75);
+}
+.add-user-btn:hover{
+    background-color: rgb(223, 82, 134) ;
+    border-color:rgb(223, 82, 134) ;
+    opacity: 80%;
+}
+.add-user-btn:active{
+    background-color: rgb(223, 82, 134) !important;
+    border-color:rgb(223, 82, 134) !important;
+}
 .add-book-btn-purple{
     height: 45px;
     width: 180px;
@@ -729,11 +866,27 @@ body {
     color: rgb(255, 255, 255);
     opacity: 80%;
 }
-
+.book-url-info{
+    text-decoration: none;
+}
 .next-btn-style:active {
     background-color: #FFC107; /* Cambia a otro color al presionar */
     color: rgb(255, 255, 255) !important; /* Mantiene el color del texto */
     opacity: 80%;
+}
+.edit-user-btn{
+    background-color: #FFCC69;
+    border-color: #FFCC69;
+    box-shadow: -2px 3px 19px 0px rgba(255, 204, 105, 0.75);
+}
+.edit-user-btn:hover {
+    background-color: #FFCC69;
+    border-color: #FFCC69;
+    opacity: 80%;
+}
+.edit-user-btn:active {
+    border-color: #FFCC69 !important;
+    background-color: #FFC107 !important; /* Cambia a otro color al presionar */
 }
 .edit-book-btn {
     height: 45px;
@@ -754,7 +907,40 @@ body {
     color: rgb(255, 255, 255) !important; /* Mantiene el color del texto */
     opacity: 80%;
 }
+.delete-book-btn-def{
+    width: 100px;
+    background-color: rgb(233, 104, 50);
+    color: rgb(255, 255, 255);
+    box-shadow: -2px 3px 19px 0px rgba(233, 104, 50, 0.75);
+}
+.delete-book-btn-def:hover {
+    background-color: rgb(233, 104, 50);
+    color: rgb(255, 255, 255);
+    opacity: 80%;
+}
 
+.delete-book-btn-def:active {
+    background-color: rgb(233, 104, 50); /* Cambia a otro color al presionar */
+    color: rgb(255, 255, 255) !important; /* Mantiene el color del texto */
+    opacity: 80%;
+}
+#guardar-cambios-usuario{
+    background-color: rgb(11, 94, 215);
+    border-color:rgb(11, 94, 215);
+    box-shadow: -2px 3px 19px 0px rgba(11, 94, 215, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(11, 94, 215, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(11, 94, 215, 0.75);
+}
+#guardar-cambios-usuario:hover{
+    background-color: rgb(11, 94, 215);
+    border-color:rgb(11, 94, 215);
+    opacity: 80%;
+}
+#guardar-cambios-usuario:active{
+    background-color: rgb(11, 94, 215) !important;
+    border-color:rgb(11, 94, 215) !important;
+}
+.b
 .delete-book-btn {
     height: 45px;
     width: 180px;
@@ -825,6 +1011,10 @@ body {
 
 .recurso4 {
     background-color: #dfc5f8;
+}
+.hidden {
+    opacity: 0;
+    position: absolute; /* Opcional: Evitar que ocupe espacio */
 }
 
 h2 {
@@ -984,7 +1174,6 @@ p {
     margin-top: 83px;
     height: 85px;
 }
-
 
 /***************************** bookStrap Media Queries *****************************/
 

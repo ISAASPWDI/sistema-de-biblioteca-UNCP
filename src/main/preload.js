@@ -1,6 +1,19 @@
 const { contextBridge, ipcRenderer } = require('electron');
-contextBridge.exposeInMainWorld('favoritesAPI', {
-    getFavorites: () => ipcRenderer.invoke('favorites:get'),
-    addFavorite: (favorite) => ipcRenderer.invoke('favorites:add', favorite),
-    removeFavorite: (id_libro) => ipcRenderer.invoke('favorites:remove', id_libro),
+contextBridge.exposeInMainWorld('sessionAPI', {
+    login: async (credentials) => {
+        return await ipcRenderer.invoke('login', credentials);
+    },
+    logout: async () => {
+        return await ipcRenderer.invoke('logout');
+    },
+    getUser: async () => {
+        return await ipcRenderer.invoke('get-user');
+    },
+    isAuthenticated: async () => {
+        return await ipcRenderer.invoke('is-authenticated');
+    },
+    // Agregar método para navegación
+    navigate: (url) => {
+        window.location.href = url;
+    }
 });

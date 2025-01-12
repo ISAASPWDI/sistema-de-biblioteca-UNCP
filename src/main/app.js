@@ -1,11 +1,13 @@
 //IMPORTACIONES
-const express = require('express')
-const helmet = require('helmet')
-const cors = require('cors')
-const path = require('path')
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+const path = require('path');
 const bcrypt = require('bcryptjs');
-const { mssql, getConnection } = require('./database.js')
-const multer = require('multer')
+const { mssql, getConnection } = require('./database.js');
+const multer = require('multer');
+const PDFDocument = require('pdfkit');
+const moment = require('moment');
 
 require('dotenv').config();
 
@@ -46,29 +48,37 @@ app.use(
     helmet({
         contentSecurityPolicy: {
             directives: {
-                defaultSrc: ["'self'"], // Carga solo desde el mismo origen
-                scriptSrc: ["'self'", 'cdn.jsdelivr.net'], // Evita 'unsafe-inline' y 'unsafe-eval'
-                styleSrc: ["'self'", 'cdn.jsdelivr.net', 'fonts.googleapis.com'], // Solo estilos permitidos
-                fontSrc: ["'self'", 'fonts.gstatic.com', 'cdn.jsdelivr.net'], // Fuentes específicas
-                connectSrc: ["'self'", 'http://localhost:3000'], // Backend permitido
-                objectSrc: ["'none'"], // Bloquea objetos inseguros
-                mediaSrc: ["'none'"], // Bloquea medios inseguros
-                frameSrc: ["'none'"], // Bloquea iframes inseguros
-                // Agrega 'self' a script-src para evitar advertencias de Electron
-                baseUri: ["'self'"], // Limita el <base> URI
-                frameAncestors: ["'none'"], // Previene que se embeza en otros sitios
-                imgSrc: ["'self'", "data:", "blob:"], // Permitir imágenes locales
-                mediaSrc: ["'self'"], // Permitir media local
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", 'cdnjs.cloudflare.com', 'cdn.jsdelivr.net'],
+                styleSrc: [
+                    "'self'",
+                    'cdn.jsdelivr.net',
+                    'cdnjs.cloudflare.com',
+                    'fonts.googleapis.com',
+                    "'unsafe-inline'"
+                ],
+                fontSrc: [
+                    "'self'",
+                    'cdnjs.cloudflare.com',
+                    'fonts.gstatic.com',
+                    'cdn.jsdelivr.net',
+                    'data:'
+                ],
+                imgSrc: ["'self'", "data:", "blob:"],
+                connectSrc: ["'self'", 'http://localhost:3000'],
+                objectSrc: ["'none'"],
+                mediaSrc: ["'self'"],
+                frameSrc: ["'none'"],
+                baseUri: ["'self'"],
+                frameAncestors: ["'none'"]
             },
         },
-        crossOriginEmbedderPolicy: true, // Evita riesgos al incrustar recursos de diferentes orígenes
+        crossOriginEmbedderPolicy: false,
     })
-)
-
+);
 //MIDDLEWARES
 
 app.use(express.static(path.join(__dirname, '..', 'renderer')));
-console.log(path.join(__dirname, '..', 'renderer'));
 app.use('/uploads', express.static(path.join(__dirname, '..', 'renderer', 'uploads')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -83,10 +93,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // Conexión a la base de datos
         const pool = await getConnection();
-
-        // Consulta para verificar si el usuario existe
         const result = await pool.request()
             .input('email', mssql.NVarChar, email)
             .query('SELECT * FROM Usuarios WHERE email = @email');
@@ -98,7 +105,6 @@ app.post('/login', async (req, res) => {
         const user = result.recordset[0];
         const storedPassword = user.contrasena_hash;
 
-        // Verificar la contraseña
         const passwordMatch = storedPassword.startsWith('$2a$')
             ? await bcrypt.compare(password, storedPassword)
             : password === storedPassword;
@@ -107,7 +113,7 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Credenciales incorrectas' });
         }
 
-        // Si la contraseña no está hasheada, hashearla y actualizarla
+        // Hashear contraseña si no está hasheada
         if (!storedPassword.startsWith('$2a$')) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
@@ -116,17 +122,23 @@ app.post('/login', async (req, res) => {
                 .input('email', mssql.NVarChar, email)
                 .input('contrasena_hash', mssql.NVarChar, hashedPassword)
                 .query('UPDATE Usuarios SET contrasena_hash = @contrasena_hash WHERE email = @email');
-
-            console.log('Contraseña actualizada y hasheada para el usuario:', user.nombre);
         }
 
-        // Enviar respuesta con la URL correspondiente al rol del usuario
+        // Preparar datos del usuario para la sesión
+        const userData = {
+            id: user.id_usuario,
+            email: user.email,
+            rol: user.rol,
+            nombre: user.nombre
+        };
+
         const redirectUrl = user.rol === 'admin'
             ? 'http://localhost:3000/interfazAdmin.html'
             : 'http://localhost:3000/interfazStudent.html';
 
         res.json({
             url: redirectUrl,
+            user: userData // Enviamos los datos del usuario
         });
     } catch (error) {
         console.error('Error durante el login:', error);
@@ -134,11 +146,14 @@ app.post('/login', async (req, res) => {
     }
 });
 
+
+
+
 //dashboard
 app.get('/dashboard', async (req, res) => {
     try {
         const pool = await getConnection();
-        
+
         const query = `
             WITH UltimosLibros AS (
                 SELECT TOP 3 titulo, autor, cantidad, imagen, created_at
@@ -173,7 +188,7 @@ app.get('/dashboard', async (req, res) => {
         `;
 
         const result = await pool.request().query(query);
-        
+
         const dashboard = {
             numAdmins: result.recordset[0].numAdmins,
             numEstudiantes: result.recordset[0].numEstudiantes,
@@ -184,27 +199,34 @@ app.get('/dashboard', async (req, res) => {
             librosFavoritos: JSON.parse(result.recordset[0].librosFavoritos || '[]')
         };
         console.log(dashboard.ultimosUsuarios);
-        
+
         res.json(dashboard);
     } catch (error) {
-        res.status(500).json({ 
+        res.status(500).json({
             message: 'Error al obtener datos del dashboard',
-            error: error.message 
+            error: error.message
         });
     }
 });
 
+
 // Cerrar sesión
 app.post('/logout', (req, res) => {
-    req.session.destroy(err => {
-        if (err) {
-            return res.status(500).json({ message: 'Error al cerrar sesión' });
-        }
-        res.json({ url: 'http://localhost:3000/views/index.html' });
-    });
+    try {
+        // Simplemente devolvemos la URL de redirección
+        res.json({
+            success: true,
+            url: 'http://localhost:3000/views/index.html'
+        });
+    } catch (error) {
+        console.error('Error en logout:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al cerrar sesión'
+        });
+    }
 });
 //Mostrar Libro (modificar)
-
 app.get('/libros', async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
@@ -275,36 +297,102 @@ app.get('/libros', async (req, res) => {
 // obtener favoritos del usuario
 app.get('/favoritos', async (req, res) => {
     try {
-        const id_usuario = req.session.userId;
+        const id_usuario = req.headers['x-user-id'];
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = 25;
+        const offset = (page - 1) * pageSize;
+        const searchTerm = req.query.search ? req.query.search.trim() : '';
+
+        if (!id_usuario) {
+            return res.status(401).json({ error: 'Usuario no autenticado' });
+        }
+
         const pool = await getConnection();
 
-        const result = await pool.request()
-            .input('id_usuario', mssql.Int, id_usuario)
-            .query(`
-                SELECT l.* 
+        // Build WHERE clause
+        let whereClause = 'WHERE f.id_usuario = @id_usuario';
+        if (searchTerm) {
+            whereClause += ` AND (
+                l.titulo LIKE @searchTerm OR 
+                l.autor LIKE @searchTerm OR 
+                JSON_VALUE(l.genero, '$.genero') LIKE @searchTerm
+            )`;
+        }
+
+        // Get total count
+        const countQuery = `
+            SELECT COUNT(*) AS total 
+            FROM Libros l
+            INNER JOIN Favoritos f ON l.id_libro = f.id_libro
+            ${whereClause}
+        `;
+
+        const countRequest = pool.request()
+            .input('id_usuario', mssql.Int, id_usuario);
+        if (searchTerm) {
+            countRequest.input('searchTerm', `%${searchTerm}%`);
+        }
+
+        const totalCountResult = await countRequest.query(countQuery);
+        const totalFavorites = totalCountResult.recordset[0].total;
+        const totalPages = Math.ceil(totalFavorites / pageSize);
+
+        // Get paginated favorites
+        const query = `
+            SELECT * FROM (
+                SELECT 
+                    l.id_libro,
+                    l.titulo,
+                    l.autor,
+                    l.imagen,
+                    l.genero,
+                    l.url,
+                    f.created_at,
+                    ROW_NUMBER() OVER (ORDER BY f.created_at DESC) AS RowNum
                 FROM Libros l
                 INNER JOIN Favoritos f ON l.id_libro = f.id_libro
-                WHERE f.id_usuario = @id_usuario
-                ORDER BY f.created_at DESC
-            `);
+                ${whereClause}
+            ) AS SubQuery
+            WHERE RowNum > @offset AND RowNum <= (@offset + @pageSize)
+        `;
 
-        res.json(result.recordset);
+        const request = pool.request()
+            .input('id_usuario', mssql.Int, id_usuario)
+            .input('offset', offset)
+            .input('pageSize', pageSize);
+        if (searchTerm) {
+            request.input('searchTerm', `%${searchTerm}%`);
+        }
+
+        const result = await request.query(query);
+
+        res.json({
+            favorites: result.recordset,
+            currentPage: page,
+            totalPages: totalPages,
+            totalFavorites: totalFavorites
+        });
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error en GET /favoritos:', error);
         res.status(500).json({ error: 'Error al obtener favoritos' });
     }
 });
+
 
 // eliminar un favorito
 app.delete('/favoritos/:id', async (req, res) => {
     try {
         const id_libro = req.params.id;
-        const id_usuario = req.session.userId;
-        const pool = await getConnection();
+        const id_usuario = req.headers['x-user-id'];
 
+        if (!id_usuario) {
+            return res.status(401).json({ error: 'Usuario no autenticado' });
+        }
+
+        const pool = await getConnection();
         await pool.request()
-            .input('id_usuario', sql.Int, id_usuario)
-            .input('id_libro', sql.Int, id_libro)
+            .input('id_usuario', mssql.Int, id_usuario)
+            .input('id_libro', mssql.Int, id_libro)
             .query('DELETE FROM Favoritos WHERE id_usuario = @id_usuario AND id_libro = @id_libro');
 
         res.json({ message: 'Favorito eliminado exitosamente' });
@@ -315,25 +403,26 @@ app.delete('/favoritos/:id', async (req, res) => {
 });
 // Agregar Libros Favoritos
 app.post('/favoritos', async (req, res) => {
-    console.log('Datos de la sesión:', req.session);
     try {
         const { id_libro } = req.body;
-
-        // Obtener el id_usuario desde la sesión
+        const id_usuario = req.headers['x-user-id'];
+        console.log('ID del libro:', id_libro, 'ID del usuario:', id_usuario);
 
         if (!id_usuario) {
+            console.log('No se recibió ID de usuario');
             return res.status(401).json({ error: 'Usuario no autenticado' });
         }
 
         const pool = await getConnection();
 
-        // Verificar si el libro ya está en favoritos
+        // Verificar si ya está en favoritos
         const checkResult = await pool.request()
             .input('id_usuario', mssql.Int, id_usuario)
             .input('id_libro', mssql.Int, id_libro)
             .query('SELECT * FROM Favoritos WHERE id_usuario = @id_usuario AND id_libro = @id_libro');
 
         if (checkResult.recordset.length > 0) {
+            console.log('Libro ya en favoritos');
             return res.status(400).json({ error: 'El libro ya está en favoritos' });
         }
 
@@ -343,9 +432,17 @@ app.post('/favoritos', async (req, res) => {
             .input('id_libro', mssql.Int, id_libro)
             .query('INSERT INTO Favoritos (id_usuario, id_libro) VALUES (@id_usuario, @id_libro)');
 
+        // Verificar que se insertó correctamente
+        const verifyInsert = await pool.request()
+            .input('id_usuario', mssql.Int, id_usuario)
+            .input('id_libro', mssql.Int, id_libro)
+            .query('SELECT * FROM Favoritos WHERE id_usuario = @id_usuario AND id_libro = @id_libro');
+
+        console.log('Verificación después de insertar:', verifyInsert.recordset);
+
         res.json({ message: 'Libro agregado a favoritos exitosamente' });
     } catch (err) {
-        console.error('Error al agregar a favoritos:', err);
+        console.error('Error detallado al agregar a favoritos:', err);
         res.status(500).json({ error: 'Error al agregar a favoritos' });
     }
 });
@@ -409,8 +506,12 @@ app.put('/libros', upload.single('imagen'), async (req, res) => {
                         @imagen,
                         @cantidad;
             `);
+        const result = await pool.request()
+            .input('id_libro', mssql.Int, parseInt(id_libro_info))
+            .query('SELECT * FROM Libros WHERE id_libro = @id_libro');
+        console.log(result.recordset);
 
-        res.json({ message: 'Libro editado con éxito' });
+        res.json({ message: 'Libro editado con éxito', result: result.recordset });
 
     } catch (error) {
         console.error('Error al editar libro:', error);
@@ -554,7 +655,7 @@ app.put('/usuarios/:id', async (req, res) => {
         const getEmail = await pool.request()
             .input('email', mssql.NVarChar, email)
             .query('SELECT * FROM Usuarios WHERE email = @email');
-        
+
         const emailExistente = getEmail.recordset[0];
 
         // Procesar contraseña si es necesario
@@ -575,11 +676,11 @@ app.put('/usuarios/:id', async (req, res) => {
             request.input('contrasena_hash', hashedPassword);
         }
 
-        if (!emailExistente || 
-            (emailExistente.nombre !== nombre || 
-             emailExistente.contrasena_hash !== contrasena_hash || 
-             emailExistente.rol !== rol)) {
-            
+        if (!emailExistente ||
+            (emailExistente.nombre !== nombre ||
+                emailExistente.contrasena_hash !== contrasena_hash ||
+                emailExistente.rol !== rol)) {
+
             await request.execute('EditarUsuario');
             res.json({ message: 'Usuario actualizado exitosamente' });
         } else {
@@ -645,7 +746,283 @@ app.get('/interfazAdmin.html', (req, res) => {
 app.get('/interfazStudent.html', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'renderer', 'views', 'interfazStudent', 'PanelDeActividad.html'))
 })
+// Endpoint para obtener estadísticas
+app.get('/api/admin/stats', async (req, res) => {
+    try {
+        const pool = await getConnection();
 
+        const result = await pool.request().query(`
+            SELECT 
+                (SELECT COUNT(*) FROM Usuarios WHERE rol = 'estudiante' AND deleted_at IS NULL) as totalEstudiantes,
+                (SELECT COUNT(*) FROM Usuarios WHERE rol = 'admin' AND deleted_at IS NULL) as totalAdmins,
+                (SELECT COUNT(*) FROM Libros WHERE deleted_at IS NULL) as totalLibros
+        `);
+
+        res.json(result.recordset[0]);
+    } catch (error) {
+        console.error('Error obteniendo estadísticas:', error);
+        res.status(500).json({ error: 'Error interno del servidor' });
+    }
+});
+
+// Endpoint para generar reporte PDF
+app.get('/api/admin/generate-report', async (req, res) => {
+    try {
+        const pool = await getConnection();
+
+        // Obtener estadísticas generales
+        const statsQuery = `
+            SELECT 
+                (SELECT COUNT(*) FROM Usuarios WHERE rol = 'estudiante' AND deleted_at IS NULL) as totalEstudiantes,
+                (SELECT COUNT(*) FROM Usuarios WHERE rol = 'admin' AND deleted_at IS NULL) as totalAdmins,
+                (SELECT COUNT(*) FROM Libros WHERE deleted_at IS NULL) as totalLibros
+        `;
+
+        // Obtener todos los libros
+        const booksQuery = `
+            SELECT 
+                id_libro,
+                titulo,
+                autor,
+                JSON_VALUE(genero, '$.genero') as genero,
+                imagen,
+                cantidad,
+                created_at
+            FROM Libros
+            WHERE deleted_at IS NULL
+            ORDER BY titulo
+        `;
+
+        // Obtener todos los usuarios
+        const usersQuery = `
+            SELECT 
+                id_usuario,
+                nombre,
+                email,
+                rol,
+                esta_activo,
+                created_at
+            FROM Usuarios
+            WHERE deleted_at IS NULL
+            ORDER BY nombre
+        `;
+
+        // Ejecutar queries
+        const stats = await pool.request().query(statsQuery);
+        const books = await pool.request().query(booksQuery);
+        const users = await pool.request().query(usersQuery);
+
+        let quantityLibro = 1,
+            quantityUser = 1;
+
+        // Crear PDF
+        const doc = new PDFDocument({
+            size: 'A4',
+            margin: 50
+        });
+        moment.locale('es');
+        doc.registerFont('LilitaOne', path.join(__dirname, '..', 'renderer', 'assets', 'fonts', 'LilitaOne-Regular.ttf'));
+        // Configurar respuesta
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', 'attachment; filename=reporte-biblioteca.pdf');
+
+        // Pipe al response
+        doc.pipe(res);
+
+        // Título y fecha
+        const insigniaPath = path.join(__dirname, '..', 'renderer', 'assets', 'img', 'insignia.jpg');
+        const imageWidth = 145; // Ancho de la imagen
+        const pageWidth = doc.page.width; // Ancho de la página
+        const x = (pageWidth - imageWidth) / 2; // Calcular la posición x para centrar
+
+        doc.image(insigniaPath, x, doc.y, {
+            fit: [imageWidth, 180],
+        })
+        doc.moveDown(15);
+        doc.font('LilitaOne').fillColor('#761e22').fontSize(24).text('Reporte de Biblioteca Tomas Gutarra Solis', { align: 'center' });
+        doc.moveDown();
+        doc.fillColor('black').fontSize(12).text(`Generado el: ${moment().format('dddd, DD/MM/YYYY HH:mm')}`, { align: 'center' });
+        doc.moveDown(2);
+
+        // Estadísticas generales
+        doc.fillColor('#761e22').fontSize(16).text('Estadísticas Generales', { underline: true });
+        doc.moveDown(2);
+
+        doc.fillColor('#4b4b4b')
+            .fontSize(14)
+            .text('Total de Estudiantes: ', {
+                continued: true,
+                baseline: 6 // Ajusta la línea base para alinear con el número más grande
+            })
+            .fillColor('#7f00b2')
+            .fontSize(20)
+            .text(`${stats.recordset[0].totalEstudiantes}`, { continued: false })
+            .fontSize(14)
+            .fillColor('#4b4b4b')
+            .text('Total de Administradores: ', {
+                continued: true,
+                baseline: 6
+            })
+            .fillColor('#7f00b2')
+            .fontSize(20)
+            .text(`${stats.recordset[0].totalAdmins}`, { continued: false })
+            .fontSize(14)
+            .fillColor('#4b4b4b')
+            .text('Total de Libros: ', {
+                continued: true,
+                baseline: 6
+            })
+            .fillColor('#7f00b2')
+            .fontSize(20)
+            .text(`${stats.recordset[0].totalLibros}`, { continued: false });
+
+        doc.moveDown();
+
+
+        // Sección de Libros
+        doc.fillColor('#761e22').fontSize(16).text('Inventario de Libros', { underline: true });
+        doc.moveDown();
+
+        const columnWidth = 250; // Ancho de cada columna
+        const textWidth = 200; // Ancho máximo para el texto
+        const startX = doc.x; // Posición inicial en X
+        let currentY = doc.y; // Posición inicial en Y
+        const marginBottom = 20; // Espacio entre el texto y la imagen
+        const imageWidthBook = 100; // Ancho fijo de la imagen
+        const imageHeight = 100; // Alto fijo de la imagen
+        const spacingBetweenRows = 250; // Espacio deseado entre filas
+        const pageHeight = doc.page.height - 50; // Altura de página con margen
+
+        books.recordset.forEach((book, index) => {
+            const isLeftColumn = index % 2 === 0;
+            const currentX = startX + (isLeftColumn ? 0 : columnWidth);
+
+            if (isLeftColumn && index > 0) {
+                // Calcular la siguiente posición Y
+                const nextY = currentY + spacingBetweenRows;
+
+                // Verificar si la siguiente fila excederá el límite de la página
+                if (nextY + imageHeight + 80 > pageHeight) {
+                    // Agregar nueva página
+                    doc.addPage();
+                    currentY = 50; // Reiniciar Y en la nueva página
+                } else {
+                    currentY = nextY;
+                }
+            }
+
+            // Asegurar que ambas columnas usen la misma posición Y
+            doc.x = currentX;
+            doc.y = currentY;
+
+            // Dibujar el contenido del libro
+            doc.fillColor('#0A7075').fontSize(16).text(`Libro: ${index + 1}`, {
+                underline: true,
+                width: textWidth, // Aplicar ancho máximo
+                align: 'left'
+            });
+            doc.moveDown();
+
+            // Función helper para texto con wrapping
+            const addWrappedText = (label, content, color) => {
+                doc.fontSize(12)
+                    .fillColor(color)
+                    .text(`${label}: ${content}`, {
+                        width: textWidth,
+                        align: 'left',
+                        continued: false
+                    });
+            };
+
+            // Agregar contenido con wrapping
+            addWrappedText('Título', book.titulo, '#0266ff');
+            addWrappedText('Autor', book.autor, '#4b4b4b');
+            addWrappedText('Género', book.genero, '#4b4b4b');
+            addWrappedText('Cantidad', book.cantidad, '#ea5422');
+
+            const imageY = doc.y + marginBottom;
+
+            // Agregar imagen si existe
+            if (book.imagen) {
+                try {
+                    const imagePath = path.join(__dirname, '..', 'renderer', book.imagen);
+                    doc.image(imagePath, currentX, imageY, {
+                        width: imageWidthBook,
+                        height: imageHeight,
+                        align: 'center',
+                        valign: 'top',
+                    });
+                } catch (err) {
+                    console.error(`Error cargando imagen para el libro ${book.titulo}:`, err);
+                    doc.y = imageY;
+                    doc.text('[Imagen no disponible]', {
+                        width: textWidth,
+                        align: 'left'
+                    });
+                }
+            } else {
+                doc.y = imageY;
+                doc.text('[Imagen no disponible]', {
+                    width: textWidth,
+                    align: 'left'
+                });
+            }
+        });
+
+
+        // Sección de Usuarios
+        doc.addPage();
+        doc.fillColor('#761e22').fontSize(16).text('Lista de Usuarios', { underline: true });
+        doc.moveDown();
+
+        const userColumnWidth = 250;
+        const userStartX = doc.x;
+        let userCurrentY = doc.y;
+        const userSpacing = 150;
+        const userPageHeight = doc.page.height - 50;
+
+        users.recordset.forEach((user, index) => {
+            const isUserLeftColumn = index % 2 === 0;
+            const userCurrentX = userStartX + (isUserLeftColumn ? 0 : userColumnWidth);
+
+            if (isUserLeftColumn && index > 0) {
+                const nextUserY = userCurrentY + userSpacing;
+
+                if (nextUserY + 100 > userPageHeight) {
+                    doc.addPage();
+                    userCurrentY = 50;
+                } else {
+                    userCurrentY = nextUserY;
+                }
+            }
+
+            doc.x = userCurrentX;
+            doc.y = userCurrentY;
+
+            doc.fillColor('#0AE7DAC').fontSize(16).text(`Usuario: ${quantityUser}`, { underline: true });
+            quantityUser++;
+            doc.moveDown();
+            doc.fillColor('#4b4b4b').fontSize(12)
+                .text('Nombre: ', { continued: true })
+                .fillColor('#05a649')
+                .text(`${user.nombre}`, { continued: false })
+                .fillColor('#4b4b4b')
+                .text(`Email: ${user.email}`)
+                .text('Rol: ', { continued: true })
+                .fillColor('#ea5422')
+                .text(`${user.rol}`, { continued: false })
+                .fillColor('#4b4b4b')
+                .text(`Estado: ${user.esta_activo ? 'Activo' : 'Inactivo'}`)
+                .moveDown();
+        });
+
+        doc.end();
+
+    } catch (error) {
+        console.error('Error generando reporte:', error);
+        res.status(500).json({ error: 'Error generando reporte' });
+    }
+});
 //Servidor
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`)

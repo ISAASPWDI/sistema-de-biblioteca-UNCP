@@ -114,6 +114,14 @@ function renderLibros(libros) {
         
         libroGridCardContainer.innerHTML += libroGridCardHtml;
     });
+    // Agregar event listeners para los botones después de renderizar
+    document.querySelectorAll('.link-info-style').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const url = e.currentTarget.getAttribute('data-url');
+            // Navegar a la URL en la misma ventana
+            window.location.href = url;
+        });
+    });
     
     // Inicializar eventos de editar y eliminar
     initEditarLibro();

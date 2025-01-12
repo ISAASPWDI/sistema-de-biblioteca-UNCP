@@ -1,44 +1,27 @@
-
 export function login() {
-    const loginForm = document.querySelector('.login-btn-form')
-    const showPassword = document.querySelector('.form-check input')
-    const passwordInput = document.getElementById('password')
+    const loginForm = document.querySelector('.login-btn-form');
+    const showPassword = document.querySelector('.form-check input');
+    const passwordInput = document.getElementById('password');
+
     showPassword.addEventListener('click', () => {
-        if (showPassword.checked) {
-            passwordInput.type = 'text'
-        } else {
-            passwordInput.type = 'password'
-        }
-    })
+        passwordInput.type = showPassword.checked ? 'text' : 'password';
+    });
 
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault()
-        getInterface()
-    })
-
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await handleLogin();
+    });
 }
 
-async function getInterface() {
-    const d = document;
-    const email = d.getElementById('email')?.value;
-    const password = d.getElementById('password')?.value;
+async function handleLogin() {
+    const email = document.getElementById('email')?.value;
+    const password = document.getElementById('password')?.value;
 
     try {
-        const response = await fetch('http://localhost:3000/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        });
-
-        const data = await response.json();
-
-
-        // Redirigir y luego obtener datos de la sesión
-        if (response.ok) {
-            console.log(data);
-            window.location.href = data.url; // Redirigir a la URL proporcionada
+        const result = await window.sessionAPI.login({ email, password });
+        
+        if (result.success) {
+            window.location.href = result.url;
         } else {
             console.error('Error credenciales');
             showErrorModal();
@@ -54,3 +37,4 @@ function showErrorModal() {
     const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
     errorModal.show();
 }
+

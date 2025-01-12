@@ -116,6 +116,8 @@ async function handleEdit(event) {
             method: 'PUT',
             body: formData,
         });
+
+   
         
         const data = await res.json();
         
@@ -123,12 +125,13 @@ async function handleEdit(event) {
             // Oculta el modal de edición
             const editBookModal = bootstrap.Modal.getInstance(document.getElementById('editBookModal'));
             editBookModal.hide();
-            
+
             // Recargar la lista de libros
             initMostrarLibro();
             
             // Mostrar modal de éxito
             showEditBookSuccessModal()
+
         }
     } catch (error) {
         console.error('Error al editar el libro:', error);

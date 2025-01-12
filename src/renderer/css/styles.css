@@ -70,6 +70,22 @@
     border-color: rgb(123, 123, 123) !important;
     color: rgb(255,255,255) !important;
 }
+.btn-secondary{
+    background-color: rgb(123, 123, 123) !important;
+    box-shadow: -2px 3px 19px 0px rgba(123, 123, 123, 0.75);
+    -webkit-box-shadow: -2px 3px 19px 0px rgba(123, 123, 123, 0.75);
+    -moz-box-shadow: -2px 3px 19px 0px rgba(123, 123, 123, 0.75);
+}
+.btn-secondary:active{
+    background-color: rgb(123, 123, 123) !important;
+    border-color: rgb(123, 123, 123) !important;
+    opacity: 80%;
+}
+.btn-secondary:focus{
+    background-color: rgb(123, 123, 123) !important;
+    border-color: rgb(123, 123, 123) !important;
+
+}
 /***************************** My styles *****************************/
 /* PANEL DE CONTROL */
 
@@ -90,6 +106,9 @@ body {
     margin: 0;
 }
 .edit-click-info{
+    border-style: none;
+}
+.view-favorite-info{
     border-style: none;
 }
 .delete-click-info{
@@ -335,7 +354,7 @@ body {
     width: 40px;
     height: 30px;
 }
-
+ 
 .header img {
     width: 40px;
     height: 40px;
@@ -433,7 +452,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 90%;
+    height: 98%;
+
 }
 
 .quote p,
@@ -464,6 +484,7 @@ body {
     margin: 0 !important;
     padding: 0 !important;
     height: 90%;
+    width: 300px !important;
 }
 
 .stat {
@@ -474,7 +495,7 @@ body {
     text-align: center;
     font-weight: bold;
     font-size: 16px;
-    height: 8rem;
+    height: 9rem;
     margin: 0;
     padding: 0;
     width: 15rem;
@@ -512,9 +533,18 @@ body {
     height: 700px !important;
     width: 340px !important;
 }
+.favorito-grid-card{
+    font-family: "Lilita One", sans-serif;
+    height: 700px !important;
+    width: 340px !important;
+}
 .id-libro-info{
     opacity: 0;
     position: absolute; /* Opcional: Evitar que ocupe espacio */
+}
+.id-favorito-info{
+    opacity: 0;
+    position: absolute;
 }
 .dark-brown-color-style{
     color: var(--color-dark-brown);
@@ -676,6 +706,11 @@ body {
     border-radius: 10px;
     height: 80%;
 }
+.reporting-container {
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    height: 90%; 
+}
 .edit-section-size{
     height: 81%;
 }
@@ -686,11 +721,30 @@ body {
     align-items: flex-start;
     margin-top: 10px;
 }
+.favoritos-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
 .libro {
     border: 1px solid #ddd;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
     height: 630px !important;
     /* height: 180px; */
+}
+.favorito{
+    border: 1px solid #ddd;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    height: 700px !important;
+    width: 320px !important;
+    /* height: 180px; */
+}
+.favorito-grid-card {
+    font-family: "Lilita One", sans-serif;
+    height: 700px !important;
+    width: 330px !important;
 }
 .border-bottom-img{
     border-bottom: 1px solid #ddd;
@@ -867,6 +921,9 @@ body {
     opacity: 80%;
 }
 .book-url-info{
+    text-decoration: none;
+}
+.favorito-url-info{
     text-decoration: none;
 }
 .next-btn-style:active {
@@ -1175,6 +1232,59 @@ p {
     height: 85px;
 }
 
+/*************************** reports.css *******************************/
+.stats-container .card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.stats-container .card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card {
+    border: 1px solid #dee2e6;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background-color: #f8f9fa !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h4 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0d6efd;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+    color: #6c757d;
+    font-size: 1rem;
+}
+
+#generateReportBtn {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+#generateReportBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#loadingIndicator {
+    margin: 2rem 0;
+}
+
+.scrollable-reporting-container {
+    padding: 2rem;
+
+    border-radius: 0.5rem;
+}
 /***************************** bookStrap Media Queries *****************************/
 
 /***************************** Small devices (landscape phones, 576px and up) *****************************/

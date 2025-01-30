@@ -5,13 +5,15 @@ const cors = require('cors');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const { mssql, getConnection } = require('./database.js');
+const sessionStore = require('./sessionStore.js');
 const multer = require('multer');
 const PDFDocument = require('pdfkit');
 const moment = require('moment');
-
+// Iniciar servidor en un puerto aleatorio disponible
+const http = require('http');
 require('dotenv').config();
-
-//MULTER
+async function setupServer() {
+    //MULTER
 // Configurar multer para almacenar las imágenes
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -41,7 +43,7 @@ const upload = multer({
     }
 })
 //CREAR SERVIDOR
-const app = express()
+const app = express();
 //CORS
 
 app.use(
@@ -78,13 +80,13 @@ app.use(
 );
 //MIDDLEWARES
 
-app.use(express.static(path.join(__dirname, '..', 'renderer')));
-app.use('/uploads', express.static(path.join(__dirname, '..', 'renderer', 'uploads')))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(express.static(path.join(__dirname, '..', 'renderer')));
+app.use('/uploads', express.static(path.join(__dirname, '..', 'renderer', 'uploads')))
 
-//PUERTO A ESCUCHAR
-const PORT = process.env.PORT || 3000
+// //PUERTO A ESCUCHAR
+// const PORT = process.env.PORT || 3000
 
 //RUTAS (modificar MVC)
 
@@ -133,10 +135,11 @@ app.post('/login', async (req, res) => {
         };
 
         const redirectUrl = user.rol === 'admin'
-            ? 'http://localhost:3000/interfazAdmin.html'
-            : 'http://localhost:3000/interfazStudent.html';
+            ? `http://localhost:${sessionStore.getPort()}/interfazAdmin.html`
+            : `http://localhost:${sessionStore.getPort()}/interfazStudent.html`;
 
         res.json({
+            success: true,
             url: redirectUrl,
             user: userData // Enviamos los datos del usuario
         });
@@ -1023,13 +1026,26 @@ app.get('/api/admin/generate-report', async (req, res) => {
         res.status(500).json({ error: 'Error generando reporte' });
     }
 });
-//Servidor
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`)
-})
+
+
+const server_instance = http.createServer(app);
+return new Promise((resolve) => {
+    server_instance.listen(0, 'localhost', () => {
+        const port = server_instance.address().port;
+        console.log('Servidor Express iniciado en puerto:', port);
+        sessionStore.setPort(port);
+        resolve(port);
+    });
+});
+
+}
+
+// //Servidor
+// app.listen(PORT, () => {
+//     console.log(`Server is running on http://localhost:${PORT}`)
+// })
 
 //Exportaciones
 module.exports = {
-    app,
-    PORT
+    setupServer,
 }

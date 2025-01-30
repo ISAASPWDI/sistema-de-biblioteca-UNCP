@@ -1,10 +1,24 @@
 const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('sessionAPI', {
     login: async (credentials) => {
-        return await ipcRenderer.invoke('login', credentials);
+        try {
+            return await ipcRenderer.invoke('login', credentials);
+        } catch (error) {
+            console.error('Error en login (preload):', error);
+            throw error;
+        }
     },
     logout: async () => {
-        return await ipcRenderer.invoke('logout');
+        try {
+            return await ipcRenderer.invoke('logout');
+        } catch (error) {
+            console.error('Error en logout (preload):', error);
+            throw error;
+        }
+    },
+    getPort: async () => {
+        return await ipcRenderer.invoke('get-server-port');
+
     },
     getUser: async () => {
         return await ipcRenderer.invoke('get-user');

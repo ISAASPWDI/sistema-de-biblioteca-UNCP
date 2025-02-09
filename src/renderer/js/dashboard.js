@@ -25,10 +25,10 @@ export function initGetDataAdmin() {
                 <div class="d-flex align-items-center pb-2">
                 <div class="imagen-usuario"><img src="/assets/img/user-icon.png" class="mb-0" alt=""></div>
                 <div class="usuario-info"> 
-                <div class="d-flex flex-column nombre-email align-items-start"><p class="mb-0 me-2 ms-0">${usuario.nombre}
+                <div class="d-flex flex-column nombre-email align-items-start"><p class="mb-0 me-2 ms-0 text-start">${usuario.nombre}
                 </p>
                 <p class="mb-0 ms-0">Rol: ${usuario.rol}</p>
-                <p class="mb-0">Correo: ${usuario.email.split('@')[0].length > 13 ? `${usuario.email.substring(0, 13)}...@${usuario.email.split('@')[1]}` : usuario.email}</p></div>
+                <p class="mb-0 text-start">Correo: ${usuario.email.split('@')[0].length > 13 ? `${usuario.email.substring(0, 13)}...@${usuario.email.split('@')[1]}` : usuario.email}</p></div>
                 
                 <div class="d-flex estado-creado align-items-start"><p class="card-text mb-0 me-2">Estado: ${usuario.esta_activo}</p>
                 <p class="card-text">Agregado: ${usuario.created_at.split('T')[0]}</p></div>
@@ -95,7 +95,7 @@ export function initGetDataAdmin() {
                                         </div>
                                         <div class="usuario-info"> 
                                             <div class="d-flex flex-column nombre-email align-items-start">
-                                                <p class="mb-0 me-2 ms-0">${libro.titulo}</p>
+                                                <p class="mb-0 me-2 ms-0 text-start">${libro.titulo}</p>
                                                 <p class="mb-0">Autor: ${libro.autor}</p>
                                             </div>
                                             <div class="d-flex estado-creado align-items-start">
@@ -136,7 +136,7 @@ export function initGetDataAdmin() {
                 <div class="d-flex align-items-center pb-3">
                 <div class="imagen-usuario"><img src="${libro.imagen}" class="me-3 mb-0 rounded" width="60px" height="60px" alt=""></div>
                 <div class="usuario-info"> 
-                <div class="d-flex flex-column nombre-email align-items-start"><p class="mb-0 me-2 ms-0">${libro.titulo}
+                <div class="d-flex flex-column nombre-email align-items-start"><p class="mb-0 me-2 ms-0 text-start">${libro.titulo}
                 </p><p class="mb-0">Autor: ${libro.autor}</p></div>
                 
                 <div class="d-flex estado-creado align-items-start"><p class="card-text mb-0 me-2">Cantidad: ${libro.cantidad}</p>

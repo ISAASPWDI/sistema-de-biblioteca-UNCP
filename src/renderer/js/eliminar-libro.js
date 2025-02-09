@@ -1,73 +1,101 @@
-
 export function initEliminarLibro() {
+
     const libroGridCardContainer = document.querySelector('.libro-grid-card-container');
     const isEliminarSection = document.querySelector('.eliminar-libros');
+    const modalElement = document.getElementById('eliminarModal');
 
-    if (!isEliminarSection) return; // Si no estás en la sección de eliminar, no hacer nada
+    if (!isEliminarSection) return;
 
-    let libroIdParaEliminar; // Variable para almacenar el ID del libro a eliminar
-    //Definir modal para que funcione el scope
-    const eliminarModal = new bootstrap.Modal(document.getElementById('eliminarModal'));
+    let libroIdParaEliminar = null;
+    
+    // Destruir cualquier instancia previa del modal
+    const existingModal = bootstrap.Modal.getInstance(modalElement);
+    if (existingModal) {
+        existingModal.dispose();
+    }
+    
+    // Remover cualquier backdrop residual y clases del modal
+    const backdrops = document.querySelectorAll('.modal-backdrop');
+    backdrops.forEach(backdrop => backdrop.remove());
+    modalElement.classList.remove('show');
+    document.body.classList.remove('modal-open');
+    
+    // Inicializar el modal con configuración específica
+    const eliminarModal = new bootstrap.Modal(modalElement, {
+        backdrop: true,
+        keyboard: true,
+        focus: true
+    });
 
-    // Agregar evento de clic a cada botón de eliminación
+    function vincularEventosEliminar() {
+        // Limpiar botones existentes antes de agregar nuevos
+        const existingButtons = libroGridCardContainer.querySelectorAll('.delete-book-btn-def');
+        existingButtons.forEach(button => button.remove());
+
+        libroGridCardContainer.querySelectorAll('.libro-grid-card').forEach(card => {
+            if (!card.querySelector('.delete-book-btn-def')) {
+                const deleteBtnHtml = `
+                    <button type="button" class="btn btn-danger delete-book-btn-def ms-2">Eliminar</button>
+                `;
+                const linkButtonContainer = card.querySelector('.book-url-info');
+                linkButtonContainer.insertAdjacentHTML('afterend', deleteBtnHtml);
+            }
+        });
+    }
+
+    // Usar delegación de eventos para el contenedor principal
     libroGridCardContainer.addEventListener('click', (event) => {
         if (event.target.classList.contains('delete-book-btn-def')) {
             const libroCard = event.target.closest('.libro-grid-card');
             libroIdParaEliminar = libroCard.querySelector('.id-libro-info').textContent.split(': ')[1];
-            // Mostrar el modal
             eliminarModal.show();
         }
     });
 
-    // Manejar la confirmación de eliminación
+    // Manejar el evento de cierre del modal
+    modalElement.addEventListener('hidden.bs.modal', () => {
+        libroIdParaEliminar = null;
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach(backdrop => backdrop.remove());
+        document.body.classList.remove('modal-open');
+    });
 
-    document.getElementById('confirmarEliminacion').addEventListener('click', () => {
+    // Manejar la confirmación de eliminación
+    document.getElementById('confirmarEliminacion').addEventListener('click', async () => {
         if (libroIdParaEliminar) {
-            eliminarLibro(libroIdParaEliminar).then(() => {
-                // Use a more reliable selector
+            try {
+                await eliminarLibro(libroIdParaEliminar);
                 const libroCard = Array.from(document.querySelectorAll('.id-libro-info'))
                     .find(el => el.textContent.includes(libroIdParaEliminar))
                     ?.closest('.libro-grid-card');
 
                 if (libroCard) {
-                    libroCard.remove(); // Eliminar la tarjeta del DOM
+                    libroCard.remove();
                 }
-            }).catch(error => {
+                eliminarModal.hide();
+            } catch (error) {
                 console.error('Error en la eliminación:', error);
-                // Optionally show an error message to the user
-            });
-        }
-    });
-
-    // Agregar botones de eliminación a las tarjetas de libros
-    libroGridCardContainer.querySelectorAll('.libro-grid-card').forEach(card => {
-        const deleteBtnHtml = `
-            <button type="button" class="btn btn-danger delete-book-btn-def ms-2">Eliminar</button>
-        `;
-        // Seleccionamos el contenedor del botón de Link del recurso
-        const linkButtonContainer = card.querySelector('.book-url-info');
-
-        // Insertamos el botón de eliminar justo después del botón de Link del recurso
-        linkButtonContainer.insertAdjacentHTML('afterend', deleteBtnHtml);
-    });
-    // Función para eliminar un libro
-    async function eliminarLibro(id) {
-        try {
-            const response = await fetch(`http://localhost:3000/libros/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Error al eliminar el libro');
-            } else {
-                alert('Libro eliminado')
-                eliminarModal.hide()
+                alert('Error al eliminar el libro');
             }
-        } catch (error) {
-            console.error('Error al eliminar el libro:', error);
         }
+    });
+
+    // Vincular eventos inicialmente
+    vincularEventosEliminar();
+
+    async function eliminarLibro(id) {
+        const port = await window.sessionAPI.getPort();
+        const response = await fetch(`http://localhost:${port}/libros/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar el libro');
+        }
+        
+        alert('Libro eliminado');
     }
 }

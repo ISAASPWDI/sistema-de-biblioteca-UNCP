@@ -40,10 +40,7 @@ async function handleLogin() {
             // Redirigir al usuario
             window.location.href = result.url;
         } else {
-            // Aquí está el cambio principal: manejamos tanto message como error
-            const errorMessage = result.message || result.error || 'Error en las credenciales';
-            console.error('Error en las credenciales:', errorMessage);
-            showErrorModal(errorMessage);
+            showErrorModal(result.message || result.error);
         }
     } catch (error) {
         console.error('Error en el proceso de login:', error);
@@ -52,12 +49,16 @@ async function handleLogin() {
 }
 
 function showErrorModal(message = 'Ha ocurrido un error') {
-    const errorElement = document.getElementById('error-message');
-    if (errorElement) {
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
-    } else {
-        alert(message);
+    // Obtener el modal y sus elementos internos
+    const errorModal = new bootstrap.Modal(document.getElementById('errorModal'), {});
+    const errorMessageElement = document.querySelector('#errorModal .modal-body');
+
+    // Actualizar el mensaje del modal
+    if (errorMessageElement) {
+        errorMessageElement.textContent = message;
     }
+
+    // Mostrar el modal
+    errorModal.show();
 }
 

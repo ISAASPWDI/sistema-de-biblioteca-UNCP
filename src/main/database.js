@@ -35,7 +35,7 @@ async function getConnection(config) {
                 )
             ]);
 
-            console.log('Conexión exitosa');
+            console.log('Conexion exitosa');
         }
         return pool;
     } catch (error) {

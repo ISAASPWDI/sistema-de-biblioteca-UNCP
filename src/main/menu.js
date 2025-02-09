@@ -43,10 +43,6 @@ const setMenu = (window) => {
             },
         },
         {
-            label: 'Dev Tools',
-            click: () => window.webContents.openDevTools(),
-        },
-        {
             label: 'Acerca de la app',
             click: () => {
                 Menu.setApplicationMenu(null);
@@ -168,8 +164,6 @@ const setMenu = (window) => {
         }
     });
 
-
-
     mainMenu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(mainMenu);
 
@@ -178,6 +172,14 @@ const setMenu = (window) => {
         if (sessionStore.isAuthenticated() && url.includes('index.html')) {
             console.log('Bloqueando regreso al login.');
             window.webContents.goBack();  // Volver a la página anterior
+        }
+    });
+
+    // Escuchar el evento F12 para abrir DevTools
+    window.webContents.on('before-input-event', (event, input) => {
+        if (input.key === 'F12') {
+            window.webContents.openDevTools();
+            event.preventDefault(); // Evita que el evento se propague
         }
     });
 };

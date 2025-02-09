@@ -67,7 +67,6 @@ app.use(
                     'data:'
                 ],
                 imgSrc: ["'self'", "data:", "blob:"],
-                connectSrc: ["'self'", 'http://localhost:3000'],
                 objectSrc: ["'none'"],
                 mediaSrc: ["'self'"],
                 frameSrc: ["'none'"],
@@ -93,20 +92,26 @@ app.use('/uploads', express.static(path.join(__dirname, '..', 'renderer', 'uploa
 //Login del sistema (modificar username)
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-
     try {
         const pool = await getConnection();
         const result = await pool.request()
             .input('email', mssql.NVarChar, email)
             .query('SELECT * FROM Usuarios WHERE email = @email');
-
+        
+        // Verificar si el usuario existe
         if (result.recordset.length === 0) {
             return res.status(400).json({ message: 'Credenciales incorrectas' });
         }
 
         const user = result.recordset[0];
-        const storedPassword = user.contrasena_hash;
 
+        // Validar si el usuario está activo
+        if (user.esta_activo === false) {
+            return res.status(403).json({ message: 'El usuario está inactivo. Contacte al administrador.' });
+        }
+
+        // Verificar la contraseña
+        const storedPassword = user.contrasena_hash;
         const passwordMatch = storedPassword.startsWith('$2a$')
             ? await bcrypt.compare(password, storedPassword)
             : password === storedPassword;
@@ -119,7 +124,6 @@ app.post('/login', async (req, res) => {
         if (!storedPassword.startsWith('$2a$')) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
-
             await pool.request()
                 .input('email', mssql.NVarChar, email)
                 .input('contrasena_hash', mssql.NVarChar, hashedPassword)
@@ -201,7 +205,7 @@ app.get('/dashboard', async (req, res) => {
             ultimosUsuarios: JSON.parse(result.recordset[0].ultimosUsuarios || '[]'),
             librosFavoritos: JSON.parse(result.recordset[0].librosFavoritos || '[]')
         };
-        console.log(dashboard.ultimosUsuarios);
+
 
         res.json(dashboard);
     } catch (error) {
@@ -219,7 +223,7 @@ app.post('/logout', (req, res) => {
         // Simplemente devolvemos la URL de redirección
         res.json({
             success: true,
-            url: 'http://localhost:3000/views/index.html'
+            url: `http://localhost:${sessionStore.getPort()}/views/index.html`
         });
     } catch (error) {
         console.error('Error en logout:', error);
@@ -1040,7 +1044,7 @@ return new Promise((resolve) => {
 
 }
 
-// //Servidor
+// Servidor en desarollo 
 // app.listen(PORT, () => {
 //     console.log(`Server is running on http://localhost:${PORT}`)
 // })

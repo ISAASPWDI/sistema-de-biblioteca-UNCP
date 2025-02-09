@@ -2,6 +2,7 @@ import { initMostrarLibro } from "./mostrar-libro.js";
 
 //EJECUTAR LA LOGICA PARA EDITAR UN LIBRO
 export function initEditarLibro() {
+
     //SELECCIONAMOS EL CONTENEDOR DEL LIBRO Y LUEGO EL BOTON PARA EDITAR Y RECORREMOS CADA GRID CARD DE LIBROS
     document.querySelectorAll('.libro-grid-card .edit-click-info').forEach(($editButton) => {
         $editButton.addEventListener('click', (e) => {
@@ -112,7 +113,9 @@ async function handleEdit(event) {
 
 
     try {
-        const res = await fetch('http://localhost:3000/libros', {
+        const port = await window.sessionAPI.getPort();
+
+        const res = await fetch(`http://localhost:${port}/libros`, {
             method: 'PUT',
             body: formData,
         });

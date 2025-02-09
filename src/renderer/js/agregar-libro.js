@@ -27,7 +27,8 @@ async function handleAdd() {
     }
 
     try {
-        const res = await fetch('http://localhost:3000/libros',{
+        const port = await window.sessionAPI.getPort();
+        const res = await fetch(`http://localhost:${port}/libros`,{
             method: 'POST',
             body: formData
         })

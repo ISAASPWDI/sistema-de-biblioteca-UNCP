@@ -1,24 +1,16 @@
 // main.js
-require('dotenv').config();
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const sessionStore = require('./sessionStore.js');
 const path = require('path');
 const { setMenu } = require('./menu.js');
 const { setupServer } = require('./app.js');
-const sql = require('mssql');
-const { getConnection,config } = require('./database.js');
+const { getConnection, config } = require('./database.js');
 require('dotenv').config({
     path: path.join(process.cwd(), '.env')
 });
 
 const createWindow = async () => {
     try {
-        console.log('Variables de entorno cargadas:', {
-            DB_SERVER: process.env.DB_SERVER,
-            DB_NAME: process.env.DB_NAME,
-            DB_USER: process.env.DB_USER
-            // No imprimir DB_PASSWORD por seguridad
-        });
         // Iniciar el servidor primero
         const port = await setupServer();
         console.log('Servidor iniciado en puerto:', port);
@@ -59,7 +51,7 @@ const createWindow = async () => {
 
         mainWindow.loadFile('./src/renderer/views/index.html');
         setMenu(mainWindow);
-        
+
         return mainWindow;
     } catch (error) {
         console.error('Error al crear la ventana:', error);
@@ -83,9 +75,9 @@ app.whenReady().then(async () => {
                 // Verificar conexión SQL antes del login
                 const sqlConnected = await getConnection();
                 if (!sqlConnected) {
-                    return { 
-                        success: false, 
-                        error: 'No hay conexión con la base de datos' 
+                    return {
+                        success: false,
+                        error: 'No hay conexión con la base de datos'
                     };
                 }
 
@@ -103,13 +95,14 @@ app.whenReady().then(async () => {
                     sessionStore.setUser(data.user);
                     return { success: true, url: data.url };
                 } else {
-                    return { success: false, error: 'Credenciales inválidas' };
+                    const errorMessage = data.message || data.error || 'Credenciales inválidas';
+                    return { success: false, error: errorMessage };
                 }
             } catch (error) {
                 console.error('Error en login:', error);
-                return { 
-                    success: false, 
-                    error: 'Error de conexión con el servidor' 
+                return {
+                    success: false,
+                    error: 'Error de conexión con el servidor'
                 };
             }
         });

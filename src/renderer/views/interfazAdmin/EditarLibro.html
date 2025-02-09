@@ -91,7 +91,7 @@
                             </div>
                         </div>
 
-                        <div class="libros-container row col-12 ps-5 pe-2 pb-3 mb-4 mt-0">
+                        <div class="libros-container editar-libros row col-12 ps-5 pe-2 pb-3 mb-4 mt-0">
                             <div class="libro-grid-card-container row row-cols-1 row-cols-md-2 g-4 mt-0">
                             </div>
 
@@ -139,7 +139,7 @@
                                 <label for="autor" class="form-label fs-5"><b>Autor</b></label>
                                 <input type="text" class="form-control input-crud-style" id="autor" name="autor"
                                     placeholder="Autor ..."
-                                    title="El nombre del autor solo debe contener letras y espacios" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+" required>
+                                    title="El nombre del autor solo debe contener letras y espacios" pattern="[A-Za-z0-9 ,.-]*" required>
                             </div>
                             <div class="col-3 mb-3">
                                 <label for="genero" class="form-label fs-5"><b>Género</b></label>

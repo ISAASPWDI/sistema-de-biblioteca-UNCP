@@ -731,16 +731,28 @@ body {
 .libro {
     border: 1px solid #ddd;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
     height: 630px !important;
     /* height: 180px; */
+}
+.libro:hover {
+    transform: translateY(-5px);
 }
 .favorito{
     border: 1px solid #ddd;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
     height: 700px !important;
     width: 320px !important;
     /* height: 180px; */
 }
+.favorito:hover{
+    transform: translateY(-5px);
+}
+.search-box input[type="text"]{
+    width: 300px;
+}
+
 .favorito-grid-card {
     font-family: "Lilita One", sans-serif;
     height: 700px !important;
@@ -1203,7 +1215,23 @@ p {
     outline: 0;
     border: 0;
 }
+.modal-backdrop {
+    --bs-backdrop-opacity: 0.5 !important;
+}
 
+/* Asegurarse de que solo haya un backdrop visible */
+.modal-backdrop + .modal-backdrop {
+    display: none;
+}
+
+/* Establecer z-index específico para el modal y backdrop */
+.modal {
+    z-index: 1055 !important;
+}
+
+.modal-backdrop {
+    z-index: 1050 !important;
+}
 .form-grid-contacto:is(:hover, :active, :focus) {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
@@ -1241,7 +1269,42 @@ p {
 .stats-container .card:hover {
     transform: translateY(-5px);
 }
-
+.quote{
+    transition: transform 0.2s;
+}
+.quote:hover {
+    transform: translateY(-5px);
+}
+.info{
+    transition: transform 0.2s;
+}
+.info:hover{
+    transform: translateY(-5px);
+}
+.books-total{
+    transition: transform 0.2s;
+}
+.books-total:hover{
+    transform: translateY(-5px);
+}
+.administradores{
+    transition: transform 0.2s;
+}
+.administradores:hover{
+    transform: translateY(-5px);
+}
+.students{
+    transition: transform 0.2s;
+}
+.students:hover{
+    transform: translateY(-5px);
+}
+.books-favorites{
+    transition: transform 0.2s;
+}
+.books-favorites:hover{
+    transform: translateY(-5px);
+}
 .stat-card {
     border: 1px solid #dee2e6;
     transition: all 0.3s ease;

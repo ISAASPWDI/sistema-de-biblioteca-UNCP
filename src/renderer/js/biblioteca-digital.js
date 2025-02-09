@@ -41,8 +41,8 @@ async function agregarAFavoritos(idLibro, btnElement) {
             window.location.href = '/login.html';
             return;
         }
-
-        const response = await fetch('http://localhost:3000/favoritos', {
+        const port = await window.sessionAPI.getPort();
+        const response = await fetch(`http://localhost:${port}/favoritos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

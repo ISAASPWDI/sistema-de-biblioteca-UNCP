@@ -3,10 +3,10 @@ const mssql = require('mssql');
 require('dotenv').config();
 
 const config = {
-    user: process.env.DB_USER || 'prueba1',
-    password: process.env.DB_PASSWORD || '12345',
-    server: process.env.DB_SERVER || 'ISAASPWDI',  // Asegúrate que este es el nombre correcto del servidor
-    database: process.env.DB_NAME || 'bibliotecauncp',
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,  // Asegúrate que este es el nombre correcto del servidor
+    database: process.env.DB_NAME,
     options: {
         encrypt: false, // Para conexiones locales
         trustServerCertificate: true,
@@ -47,7 +47,7 @@ async function getConnection(config) {
             serverName: error.serverName,
             procName: error.procName
         };
-        
+        //Conseguir detalles al conectarnos a la base de datos...
         console.error('Error detallado de conexión:', errorInfo);
         
         let userMessage = 'Error de conexión a la base de datos: ';

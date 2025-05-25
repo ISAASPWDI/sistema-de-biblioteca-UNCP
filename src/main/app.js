@@ -187,7 +187,7 @@ app.get('/dashboard', async (req, res) => {
             SELECT 
                 (SELECT COUNT(*) FROM Usuarios WHERE rol = 'admin') numAdmins,
                 (SELECT COUNT(*) FROM Usuarios WHERE rol = 'estudiante') numEstudiantes,
-                (SELECT COUNT(*) FROM Libros) numTotalLibros,
+                (SELECT SUM(cantidad) FROM Libros) numTotalLibros,
                 (SELECT COUNT(*) FROM Favoritos) numTotalLibrosFavoritos,
                 (SELECT * FROM UltimosLibros FOR JSON AUTO) ultimosLibros,
                 (SELECT * FROM UltimosUsuarios FOR JSON AUTO) ultimosUsuarios,
@@ -762,7 +762,7 @@ app.get('/api/admin/stats', async (req, res) => {
             SELECT 
                 (SELECT COUNT(*) FROM Usuarios WHERE rol = 'estudiante' AND deleted_at IS NULL) as totalEstudiantes,
                 (SELECT COUNT(*) FROM Usuarios WHERE rol = 'admin' AND deleted_at IS NULL) as totalAdmins,
-                (SELECT COUNT(*) FROM Libros WHERE deleted_at IS NULL) as totalLibros
+                (SELECT SUM(cantidad) FROM Libros WHERE deleted_at IS NULL) as totalLibros
         `);
 
         res.json(result.recordset[0]);
@@ -782,7 +782,7 @@ app.get('/api/admin/generate-report', async (req, res) => {
             SELECT 
                 (SELECT COUNT(*) FROM Usuarios WHERE rol = 'estudiante' AND deleted_at IS NULL) as totalEstudiantes,
                 (SELECT COUNT(*) FROM Usuarios WHERE rol = 'admin' AND deleted_at IS NULL) as totalAdmins,
-                (SELECT COUNT(*) FROM Libros WHERE deleted_at IS NULL) as totalLibros
+                (SELECT SUM(cantidad) FROM Libros WHERE deleted_at IS NULL) as totalLibros
         `;
 
         // Obtener todos los libros

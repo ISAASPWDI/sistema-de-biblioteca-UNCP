@@ -3,4 +3,4 @@ eslint.config.mjs
 dist
 .env
 package-lock.json
-src/renderer/uploads
+

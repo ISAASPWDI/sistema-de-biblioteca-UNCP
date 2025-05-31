@@ -700,7 +700,11 @@ body {
 .dropdown-btn span {
     font-size: 12px;
 }
-
+.ayuda_soporte_container{
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    height: 90%;
+}
 .biblioteca-container {
     box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
@@ -1342,11 +1346,86 @@ p {
 #loadingIndicator {
     margin: 2rem 0;
 }
-
+.panel-de-actividad{
+    padding: 20px;
+}
+.overflow-y-hidden{
+    overflow-y: auto !important;
+}
 .scrollable-reporting-container {
     padding: 2rem;
 
     border-radius: 0.5rem;
+}
+.ayuda__soporte__container{
+    padding: 20px;
+    height: 90vh;
+    width: 100%;
+}
+.imagenes_ayuda_soporte{
+    width: 680px;
+    margin-bottom: 35px;
+}
+.accordion {
+    width: 100%;
+    margin: 20px auto;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+.menu-title__ayuda_soporte{
+    margin-bottom: 10px;
+}
+
+.accordion-item {
+    border-bottom: 1px solid #eee;
+    margin: 10px;
+}
+
+.accordion-header {
+    background: #fbfbfb;
+    padding: 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    text-align: left;
+    transition: background 0.3s;
+
+}
+
+.accordion-header:hover {
+    background: #e0e0e0;
+}
+
+
+.accordion-content {
+    padding: 15px;
+    display: none;
+    background: #fff;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.niños-leyendo {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lectura-img {
+    max-width: 250px;
+    height: auto;
+}
+
+.niños-leyendo-p {
+    font-size: 2em;
+    font-style: italic;
+    margin-top: 15px;
+}
+.menu-content__ayuda_soporte{
+    font-size: 20px;
 }
 /***************************** bookStrap Media Queries *****************************/
 

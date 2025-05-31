@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
+    <title>Admin Interface</title>
+</head>
+
+<body>
+    <div class="container__2">
+        <div class="container__3 m-4">
+            <aside class="sidebar pe-4">
+                <div class="container pt-3 ps-3 pb-3 pe-0 mb-1 menu-principal-size">
+                    <h1> <b>LibraMaster</b> </h1>
+                    <p>Sesión iniciada como: <strong>Admin</strong></p>
+                    <h3> <b>Menu Principal</b> </h3>
+                    <nav class="nav_panel">
+                        <ul class="menu d-flex flex-column mt-3">
+                            <li class="menu-hover-style d-flex align-items-center mb-2 "><a href="../../views/interfazAdmin/interfazAdmin.html"
+                                    class="fs-5 mb-3 pt-3 ps-2 pe-0 me-0 w-100"><img class="img-style" src="../../assets/img/dashboard.png"
+                                        alt="Icono Panel"> Panel de
+                                    Actividad</a></li>
+                            <li class="menu-hover-style d-flex align-items-center mb-2"><a
+                                    href="../../views/interfazAdmin/AgregarLibro.html" id="gestionarLibros"
+                                    class="fs-5 mb-4 pt-4 ps-2  w-100"><img class="img-style" src="../../assets/img/libro.png"
+                                        alt="Icono Biblioteca"> Gestión de
+                                    Libros </a></li>
+                            <li class="menu-hover-style d-flex align-items-center mb-2"><a
+                                    href="../../views/interfazAdmin/GestionarEstudiante.html"
+                                    class="gestion-estudiante-size mb-4 pt-4 ps-2 w-100"><img
+                                        class="gest-estudiante-img-size ms-2" src="../../assets/img/gestionar-estudiante.png"
+                                        alt="Icono Acceso Remoto"> Gestionar Usuarios</a></li>
+                            <li class="menu-hover-style d-flex align-items-center mb-2 "><a href="../../views/interfazAdmin/Reportes.html"
+                                    class="fs-5 mb-3 pt-3 ps-2 w-100"><img class="img-style" src="../../assets/img/reporte.png"
+                                        alt="Icono Favoritos"> Reportes</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <hr class="">
+                <div class="container p-1 pb-3">
+                    <h3 class="ps-3 mb-0"> <b>Sistema</b> </h3>
+                    <nav class="nav_panel">
+                        <ul class="menu d-flex flex-column ps-2 pt-0 pe-2 pb-3 mt-3 mb-2">
+                            <li class="menu-hover-style d-flex align-items-center"><a href="../../views/interfazAdmin/AyudaSoporte-Admin.html"
+                                    class="fs-5 mt-4 mb-4 w-100"><img class="help-icon me-0" src="../../assets/img/ayuda.png"
+                                        alt="Icono Panel"> Ayuda y Soporte</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <button type="button" class="btn btn-dark ms-3" id="cerrar-sesion"><img class="me-3"
+                            src="../../assets/img/cerrar-sesion.png" alt="Icono cerrar-sesion">Cerrar
+                        Sesión</button>
+                </div>
+            </aside>
+            <main class="ayuda__soporte__container">
+                <div class="header">
+                    <h1> <b>Ayuda y soporte</b> <img class="img-ayuda" src="../../assets/img/ayudaysoporte.png"
+                            alt="biblioteca-icono"></h1>
+                </div>
+                <div class="ayuda_soporte_container w-100 ms-1 mt-4 me-1 d-flex justify-content-between row overflow-x-hidden overflow-y-hidden">
+
+                    <div class="panel-de-actividad">
+                        <p class="descripcion">
+                            En esta sección ofrecemos apoyo a los docentes para que puedan gestionar de manera eficiente el software de la biblioteca digital .</p>
+                        <div class="accordion">
+
+
+
+                            <!-- Panel de Actividad -->
+                            <div class="accordion-item">
+                                <button class="accordion-header">1. Panel de Actividad</button>
+                                <div class="accordion-content">
+                                    <p>El panel de actividades proporciona una visión general de la biblioteca, incluyendo el número total de libros, la cantidad de administrativos y la cantidad de estudiantes registrados. En el centro, se muestra un resumen de estos datos, mientras que en los laterales se presentan los ultimos usuarios y libros agregados</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/panel de actividad admin.jpg" alt="">
+                                <div class="menu-item__ayuda_soporte">
+                                  <h3 class="menu-title__ayuda_soporte">1.1 Ultimos usuarios y libros agregados</h3>
+                                  <div class="menu-content__ayuda_soporte">
+                                    <p>
+                                        Esta subsección ofrece la vista de los ultimos usuarios y libros que han sido agregados al sistema.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/ultimos usuarios y libros agregados.jpg" alt="">
+                                  </div>
+                                </div>
+                              
+                                <div class="menu-item__ayuda_soporte">
+                                  <h3 class="menu-title__ayuda_soporte">1.2 Libros totales</h3>
+                                  <div class="menu-content__ayuda_soporte">
+                                    <p>Esta subsección brinda información detallada sobre la cantidad total de libros disponibles en la biblioteca, permitiendo a los estudiantes conocer el número de ejemplares registrados.</p>
+                                  </div>
+                                  <img class="imagenes_ayuda_soporte" src="../../assets/img/libros totales admin.jpg" alt="">
+                                </div>
+                              
+                                <div class="menu-item__ayuda_soporte">
+                                  <h3 class="menu-title__ayuda_soporte">1.3 Administradores</h3>
+                                  <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, podras ver todos los administradores registrados en el sistema.</p>
+                                  </div>
+                                  <img class="imagenes_ayuda_soporte" src="../../assets/img/administradores admin.jpg" alt="">
+                                </div>
+                              
+                                <div class="menu-item__ayuda_soporte">
+                                  <h3 class="menu-title__ayuda_soporte">1.4 Estudiantes</h3>
+                                  <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, podrás ver la cantidad de estudiantes registrados que tienen acceso a esta biblioteca digital.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/estudiantes admin.jpg" alt="">
+                                  </div>
+                                </div>
+
+                                
+                                </div>
+                            </div>
+                    
+                            <!-- Gestion de libros -->
+                            <div class="accordion-item">
+                                <button class="accordion-header">2. Gestión de libros</button>
+                                <div class="accordion-content">
+                                    <p>En esta sección, podrás gestionar los libros, es decir, agregar, editar y eliminar ejemplares.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/gestion de libros admin.jpg" alt="">
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">2.1 Agregar libro</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, podrás agregar un libro a la biblioteca digital. Solo debes ingresar el título, el autor, el enlace a algún recurso y el género al que pertenece. Además, deberás subir el libro en formato PDF. Para guardar la información, haz clic en el botón "Agregar libro".</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/agregar libro admin.jpg" alt="">
+                                </div>
+                            </div>
+        
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">2.2 Editar libros</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, puedes editar los libros fácilmente. Solo haz clic en el botón "Editar libro" y aparecerá un modal donde podrás actualizar su información.</p>
+                                </div>
+                                <img class="imagenes_ayuda_soporte" src="../../assets/img/editar libro admin.jpg" alt="">
+                                <img class="imagenes_ayuda_soporte" src="../../assets/img/editar libro admin 2.jpg" alt="">
+                            </div>
+        
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">2.3 Eliminar Libros</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta sección, puedes eliminar libros del sistema con facilidad. Solo pulsa en "Eliminar" y aparecerá un modal para confirmar la acción.
+                                    </p>
+                                </div>
+                                <img class="imagenes_ayuda_soporte" src="../../assets/img/eliminar libro admin.jpg" alt="">
+                                <img class="imagenes_ayuda_soporte" src="../../assets/img/eliminar libro admin 2.jpg" alt="">
+       
+                            </div>
+                                </div>
+                            </div>
+                    
+                            <!-- Gestionar estudiantes -->
+                            <div class="accordion-item">
+                                <button class="accordion-header">3. Gestionar estudiantes</button>
+                                <div class="accordion-content">
+                                    <p>En esta sección, podrás administrar a los estudiantes registrados en el sistema. Podrás ver su nombre, rol y el estado en el que se encuentren, y realizar acciones como editar sus datos o eliminarlos.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/gestionar estudiante admin.jpg" alt="">
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">3.1 Buscar estudiante</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, podrás buscar a todos los estudiantes y administradores registrados en el sistema.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/buscar estudiante admin.jpg" alt="">
+                                </div>
+                            </div>
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">3.1.1 Editar estudiante y administrativos</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, podrás editar la información de los estudiantes y administradores. Podrás cambiar su nombre, correo, rol y contraseña.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/editar estudiante admin.jpg" alt="">
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/editar usuario admin.jpg" alt="">
+                                </div>
+                            </div>
+
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">3.1.2 Eliminar estudiante y administrativos</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta subsección, podrás eliminar a los estudiantes o administradores, ya sea porque ya no pertenecen a la escuela o por otros motivos.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/eliminar libro admin.jpg" alt="">
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/eliminar usuario admin.jpg" alt="">
+                                </div>
+                            </div>
+
+                            <div class="menu-item__ayuda_soporte">
+                                <h3 class="menu-title__ayuda_soporte">3.2 Agregar usuario</h3>
+                                <div class="menu-content__ayuda_soporte">
+                                    <p>En esta sección, podrás añadir estudiantes o administradores. Solo tendrás que ingresar su nombre, apellido, rol y contraseña.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/agregar estudiante admin.jpg" alt="">
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/agrega usuario admin.jpg" alt="">
+                                </div>
+                            </div>
+                                </div>
+                            </div>
+
+                            <!-- Reportes -->
+                            <div class="accordion-item">
+                                <button class="accordion-header">4. Reportes</button>
+                                <div class="accordion-content">
+                                    <p>En esta sección, podrás ver los reportes del sistema, incluyendo el número de estudiantes, administradores y la cantidad total de libros. Esta información te permitirá tomar decisiones de manera productiva y basada en los datos del reporte.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/reportes admin.jpg" alt="">
+                                    <p>Este es el reporte generado, el cual incluye la imagen de la escuela, la fecha del reporte, las estadísticas generales y la lista de libros registrados en el sistema.</p>
+                                    <img class="imagenes_ayuda_soporte" src="../../assets/img/reporte ejemplo.jpg" alt="">                                   
+                                
+                            </div>
+                    
+                            <div class="niños-leyendo">
+                                <img class="lectura-img" src="../../assets/img/imagen lectura.png" alt="niños leyendo">
+                            <p class="niños-leyendo-p">
+                                Si quieres aventura, lanzate a la lectura
+                            </p>
+                            </div>
+                            
+                    </div>
+                </div>
+                
+
+            </main>
+        </div>
+    </div>
+
+    <script src="/js/ayuda-soporte.js" type="module"></script>
+    <script src="/js/script.js" type="module"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

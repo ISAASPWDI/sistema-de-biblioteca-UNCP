@@ -50,7 +50,7 @@ export function initMisFavoritos() {
                 search: search
             });
             const port = await window.sessionAPI.getPort();
-            const response = await fetch(`http://localhost:${port}/favoritos?${queryParams}`, {
+            const response = await fetch(`http://192.168.1.244:${port}/favoritos?${queryParams}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ export function initMisFavoritos() {
                 throw new Error('Usuario no autenticado');
             }
             const port = await window.sessionAPI.getPort();
-            const response = await fetch(`http://localhost:${port}/favoritos/${idLibro}`, {
+            const response = await fetch(`http://192.168.1.244:${port}/favoritos/${idLibro}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',

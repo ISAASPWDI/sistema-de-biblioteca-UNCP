@@ -54,7 +54,7 @@ export async function mostrarLibro(page = 1, searchTerm = '') {
 
         // Construir URL con parámetros de búsqueda
         const port = await window.sessionAPI.getPort();
-        const url = new URL(`http://localhost:${port}/libros`);
+        const url = new URL(`http://192.168.1.244:${port}/libros`);
         url.searchParams.set('page', page);
         if (searchTerm) url.searchParams.set('search', searchTerm);
 

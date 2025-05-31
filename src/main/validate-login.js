@@ -3,7 +3,7 @@ const fetch = require('node-fetch'); // Ensure you have node-fetch installed
 const sessionStore = require('./sessionStore.js');
 ipcMain.on('login-attempt', async (event, { email, password }) => {
     try {
-        const response = await fetch(`http://localhost:${sessionStore.getPort()}/login`, {
+        const response = await fetch(`http://192.168.1.244:${sessionStore.getPort()}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

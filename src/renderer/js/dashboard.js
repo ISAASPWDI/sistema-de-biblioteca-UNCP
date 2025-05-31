@@ -6,7 +6,7 @@ export function initGetDataAdmin() {
             const port = await window.sessionAPI.getPort();
             console.log(port);
             
-            const response = await fetch(`http://localhost:${port}/dashboard`, {
+            const response = await fetch(`http://192.168.1.244:${port}/dashboard`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

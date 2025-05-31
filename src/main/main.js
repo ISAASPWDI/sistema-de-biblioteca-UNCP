@@ -81,7 +81,7 @@ app.whenReady().then(async () => {
                     };
                 }
 
-                const response = await fetch(`http://localhost:${port}/login`, {
+                const response = await fetch(`http://192.168.1.244:${port}/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ app.whenReady().then(async () => {
         ipcMain.handle('logout', async () => {
             const port = sessionStore.getPort();
             try {
-                const response = await fetch(`http://localhost:${port}/logout`, {
+                const response = await fetch(`http://192.168.1.244:${port}/logout`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

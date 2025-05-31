@@ -45,7 +45,7 @@ const upload = multer({
 //CREAR SERVIDOR
 const app = express();
 //CORS
-
+app.use(cors());
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -139,8 +139,8 @@ app.post('/login', async (req, res) => {
         };
 
         const redirectUrl = user.rol === 'admin'
-            ? `http://localhost:${sessionStore.getPort()}/interfazAdmin.html`
-            : `http://localhost:${sessionStore.getPort()}/interfazStudent.html`;
+            ? `http://192.168.1.244:${sessionStore.getPort()}/interfazAdmin.html`
+            : `http://192.168.1.244:${sessionStore.getPort()}/interfazStudent.html`;
 
         res.json({
             success: true,
@@ -223,7 +223,7 @@ app.post('/logout', (req, res) => {
         // Simplemente devolvemos la URL de redirección
         res.json({
             success: true,
-            url: `http://localhost:${sessionStore.getPort()}/views/index.html`
+            url: `http://192.168.1.244:${sessionStore.getPort()}/views/index.html`
         });
     } catch (error) {
         console.error('Error en logout:', error);
@@ -1030,16 +1030,19 @@ app.get('/api/admin/generate-report', async (req, res) => {
         res.status(500).json({ error: 'Error generando reporte' });
     }
 });
-
+app.get('/ping', (req, res) => {
+    res.send('Servidor funcionando correctamente 🚀');
+});
 
 const server_instance = http.createServer(app);
 return new Promise((resolve) => {
-    server_instance.listen(0, 'localhost', () => {
-        const port = server_instance.address().port;
-        console.log('Servidor Express iniciado en puerto:', port);
-        sessionStore.setPort(port);
-        resolve(port);
-    });
+    server_instance.listen(3000, '0.0.0.0', () => {
+    const port = server_instance.address().port;
+    console.log('Servidor Express iniciado en puerto:', port);
+    sessionStore.setPort(port);
+    resolve(port);
+});
+
 });
 
 }

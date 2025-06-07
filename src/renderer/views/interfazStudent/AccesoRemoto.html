@@ -1,129 +1,1178 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <!-- Ajuste de Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
-    script-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
-    style-src 'self' https://cdn.jsdelivr.net 'unsafe-inline'; 
-    font-src 'self' https://fonts.gstatic.com; 
-    connect-src 'self' http://localhost:3000;
-    img-src 'self' data:;">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="../../css/styles.css" />
     <title>Student Interface</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container__2">
-        <div class="container__3 m-4">
-            <aside class="sidebar">
-                <div class="container p-3 menu-principal-size">
-                    <h1> <b>LibraMaster</b> </h1>
-                    <p>Sesión iniciada como: <strong>Estudiante</strong></p>
-                    <h3> <b>Menu Principal</b> </h3>
-                    <nav class="nav_panel">
-                        <ul class="menu d-flex flex-column mt-3">
-                            <li class="menu-hover-style d-flex align-items-center mb-2 "><a
-                                    href="../../views/interfazStudent/PanelDeActividad.html" class="fs-5 mb-3 pt-3 ps-2 w-100"><img class="img-style"
-                                        src="../../assets/img/dashboard.png" alt="Icono Panel"> Panel de
-                                    Actividad</a></li>
-                            <li class="menu-hover-style d-flex align-items-center mb-2 "><a
-                                    href="../../views/interfazStudent/BibliotecaDigital.html" id="gestionarLibros"
-                                    class="fs-5 mb-4 pt-4 ps-2 w-100"><img class="img-style" src="../../assets/img/libro.png"
-                                        alt="Icono Biblioteca"> Biblioteca Digital </a></li>
-                            <li class="menu-hover-style d-flex align-items-center mb-2"><a
-                                    href="../../views/interfazStudent/AccesoRemoto.html"
-                                    class="gestion-estudiante-size mb-4 pt-4 ps-2 w-100"><img
-                                        class="gest-estudiante-img-size ms-1 me-3" src="../../assets/img/wifi.png"
-                                        alt="Icono Acceso Remoto"> Acceso Remoto </a></li>
-                            <li class="menu-hover-style d-flex align-items-center mb-2 "><a
-                                    href="../../views/interfazStudent/MisFavoritos.html" class="fs-5 mb-3 pt-3 ps-2 w-100"><img
-                                        class="mis-favoritos-img-size ms-1 me-3" src="../../assets/img/favorito.png"
-                                        alt="Icono Favoritos"> Mis Favoritos </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+      <div class="container__3 m-4">
+        <aside class="sidebar">
+          <div class="container p-3 menu-principal-size">
+            <h1><b>LibraMaster</b></h1>
+            <p>Sesión iniciada como: <strong>Estudiante</strong></p>
+            <h3><b>Menu Principal</b></h3>
+            <nav class="nav_panel">
+              <ul class="menu d-flex flex-column mt-3">
+                <li class="menu-hover-style d-flex align-items-center mb-2">
+                  <a
+                    href="../../views/interfazStudent/PanelDeActividad.html"
+                    class="fs-5 mb-3 pt-3 ps-2 w-100"
+                    ><img
+                      class="img-style"
+                      src="../../assets/img/dashboard.png"
+                      alt="Icono Panel"
+                    />
+                    Panel de Actividad</a
+                  >
+                </li>
+                <li class="menu-hover-style d-flex align-items-center mb-2">
+                  <a
+                    href="../../views/interfazStudent/BibliotecaDigital.html"
+                    id="gestionarLibros"
+                    class="fs-5 mb-4 pt-4 ps-2 w-100"
+                    ><img
+                      class="img-style"
+                      src="../../assets/img/libro.png"
+                      alt="Icono Biblioteca"
+                    />
+                    Biblioteca Digital
+                  </a>
+                </li>
+                <li class="menu-hover-style d-flex align-items-center mb-2">
+                  <a
+                    href="../../views/interfazStudent/AccesoRemoto.html"
+                    class="gestion-estudiante-size mb-4 pt-4 ps-2 w-100"
+                    ><img
+                      class="gest-estudiante-img-size ms-1 me-3"
+                      src="../../assets/img/wifi.png"
+                      alt="Icono Acceso Remoto"
+                    />
+                    Acceso Remoto
+                  </a>
+                </li>
+                <li class="menu-hover-style d-flex align-items-center mb-2">
+                  <a
+                    href="../../views/interfazStudent/MisFavoritos.html"
+                    class="fs-5 mb-3 pt-3 ps-2 w-100"
+                    ><img
+                      class="mis-favoritos-img-size ms-1 me-3"
+                      src="../../assets/img/favorito.png"
+                      alt="Icono Favoritos"
+                    />
+                    Mis Favoritos
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
 
-                <hr class="">
-                <div class="container p-1 pb-3">
-                    <h3 class="ps-3 mb-0"> <b>Sistema</b> </h3>
-                    <nav class="nav_panel">
-                        <ul class="menu d-flex flex-column ps-2 pt-0 pe-2 pb-3 mt-3 mb-2">
-                            <li class="menu-hover-style d-flex align-items-center"><a href="#"
-                                    class="fs-5 mt-4 mb-4 w-100"><img class="help-icon me-0" src="../../assets/img/ayuda.png"
-                                        alt="Icono Panel"> Ayuda y Soporte</a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <button type="button" class="btn btn-dark ms-3" id="cerrar-sesion"><img class="me-3"
-                            src="../../assets/img/cerrar-sesion.png" alt="Icono cerrar-sesion">Cerrar
-                        Sesión</button>
-                </div>
-            </aside>
-            <main class="main-biblioteca-digital">
-                <div class="header">
-                    <h1> <b>Acceso Remoto</b> <img class="img-style" src="../../assets/img/access.png"
-                            alt="biblioteca-icono"></h1>
-                    <h3 class="mt-2">
-                        ¡ Accede a recursos educativos ya mismo ! Haz click en los temas relacionados para explorar más...
-                    </h3>
-                </div>
+          <hr class="" />
+          <div class="container p-1 pb-3">
+            <h3 class="ps-3 mb-0"><b>Sistema</b></h3>
+            <nav class="nav_panel">
+              <ul class="menu d-flex flex-column ps-2 pt-0 pe-2 pb-3 mt-3 mb-2">
+                <li class="menu-hover-style d-flex align-items-center">
+                  <a
+                    href="../../views/interfazStudent/AyudaSoporte-student.html"
+                    class="fs-5 mt-4 mb-4 w-100"
+                    ><img
+                      class="help-icon me-0"
+                      src="../../assets/img/ayuda.png"
+                      alt="Icono Panel"
+                    />
+                    Ayuda y Soporte</a
+                  >
+                </li>
+              </ul>
+            </nav>
+            <button type="button" class="btn btn-dark ms-3" id="cerrar-sesion">
+              <img
+                class="me-3"
+                src="../../assets/img/cerrar-sesion.png"
+                alt="Icono cerrar-sesion"
+              />Cerrar Sesión
+            </button>
+          </div>
+        </aside>
+        <main class="main-biblioteca-digital">
+          <div class="header">
+            <h1>
+              <b>Acceso Remoto</b>
+              <img
+                class="img-style"
+                src="../../assets/img/access.png"
+                alt="biblioteca-icono"
+              />
+            </h1>
+            <h3 class="mt-2">
+              ¡ Accede a recursos educativos ya mismo ! Haz click en los temas
+              relacionados para explorar más...
+            </h3>
+          </div>
 
+          <div
+            class="biblioteca-container ms-1 mt-4 me-1 d-flex justify-content-between row"
+          >
+            <div
+              class="scrollable-container col-12 overflow-y-scroll overflow-x-hidden h-100 pe-0"
+            >
+              <div
+                class="libros-container row col-12 ps-4 pt-3 pe-3 pb-3 mb-4 gy-3"
+              >
+                <div class="container">
+                  <div class="row gap-container">
+                    <!-- Aprendo en Casa -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Aprendo en Casa</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Aprendo en Casa es una plataforma del MINEDU que
+                          ofrece educación virtual gratuita para estudiantes.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/aprendo en casa.jpeg"
+                          alt="aprendo en casa"
+                        />
+                      </div>
 
-                <div class="biblioteca-container ms-1 mt-4 me-1 d-flex justify-content-between row">
-                    <div class="scrollable-container col-12 overflow-y-scroll overflow-x-hidden h-100 pe-0">
-                        <div class="libros-container row col-12 ps-4 pt-3 pe-3 pb-3 mb-4">
-                            <div class="first-resource-card-style col-6 rounded-4">
-                                <div class="libro-header">
-                                    <h3>Recurso 1</h3>
-                                </div>
-                                <button type="button" class="btn btn-dark">Link del recurso<img class="ms-2"
-                                    src="../../assets/img/link.png" alt="Icono cerrar-sesion" width="20px" height="20px"></button>
-                            </div>
-                            <div class="second-resource-card-style col-6 rounded-4">
-                                <div class="libro-header">
-                                    <h3>Recurso 1</h3>
-                                </div>
-                                <button type="button" class="btn btn-dark">Link del recurso<img class="ms-2"
-                                    src="../../assets/img/link.png" alt="Icono cerrar-sesion" width="20px" height="20px"></button>
-                            </div>
-
-                        </div>
-
-                        <div class="libros-container row col-12 ps-4 pt-3 pe-3 pb-3 mb-4">
-                            <div class="third-resource-card-style col-6 rounded-4">
-                                <div class="libro-header">
-                                    <h3>Recurso 1</h3>
-                                </div>
-                                <button type="button" class="btn btn-dark">Link del recurso<img class="ms-2"
-                                    src="../../assets/img/link.png" alt="Icono cerrar-sesion" width="20px" height="20px"></button>
-                            </div>
-                            <div class="fourth-resource-card-style col-6 rounded-4">
-                                <div class="libro-header">
-                                    <h3>Recurso 1</h3>
-                                </div>
-                                <button type="button" class="btn btn-dark">Link del recurso<img class="ms-2"
-                                    src="../../assets/img/link.png" alt="Icono cerrar-sesion" width="20px" height="20px"></button>
-                            </div>
-
-                        </div>
+                      <a
+                        href="https://aprendoencasa.org/pais/peru/"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
                     </div>
 
+                    <!-- Perú Educa -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Perú Educa</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          PerúEduca es la plataforma educativa oficial del
+                          MINEDU que brinda recursos, cursos y herramientas
+                          educativas.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/peru educa.jpeg"
+                          alt="peru educa"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.perueduca.pe/#/home"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Materiales Educativos -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo especial">
+                          Materiales Educativos para Inicial, Primaria y
+                          Secundaria
+                        </h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Materiales Educativos para Inicial, Primaria y
+                          Secundaria: recursos digitales gratuitos organizados
+                          por niveles
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Materiales Educativos para Inicial, Primaria y Secundaria.jpeg"
+                          alt="materiales educativos"
+                        />
+                      </div>
+
+                      <a
+                        href="https://materialeducativoperu.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Acceso a materiales educativos digitales -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo especial">
+                          Acceso a materiales educativos digitales de PerúEduca
+                        </h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          PerúEduca ofrece acceso gratuito a materiales
+                          digitales educativos para todos los niveles
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Acceso a materiales educativos digitales de PerúEduca.jpeg"
+                          alt="materiales peru educa"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.gob.pe/34222-acceder-a-los-materiales-educativos-digitales-med-de-la-plataforma-tecnologica-educativa-perueduca"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Centro de Herramientas Pedagógicas -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo especial">
+                          Centro de Herramientas Pedagógicas de PerúEduca
+                        </h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          El Centro de Herramientas Pedagógicas de PerúEduca
+                          ofrece orientaciones, guías y fascículos
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Centro de Herramientas Pedagógicas de PerúEduca.jpeg"
+                          alt="herramientas pedagogicas"
+                        />
+                      </div>
+
+                      <a
+                        href="https://repositorio.perueduca.pe/centro-de-herramientas-pedagogicas/"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Starfall -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Starfall</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos y actividades para aprender a leer, fonética y
+                          matemáticas básicas.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Starfall.jpeg"
+                          alt="starfall"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.starfall.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- National Geographic Kids -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">
+                          National Geographic Kids
+                        </h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Videos, juegos y artículos sobre animales, ciencia,
+                          historia y geografía.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/National Geographic Kids.jpeg"
+                          alt="national geographic kids"
+                        />
+                      </div>
+
+                      <a
+                        href="https://kids.nationalgeographic.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Funbrain -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Funbrain</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos educativos, libros y videos para matemáticas,
+                          lectura y resolución de problemas.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/funbrain.jpeg"
+                          alt="funbrain"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.funbrain.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- ABCya! -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">ABCya!</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos interactivos alineados al currículo escolar
+                          para matemáticas, lectura y lógica.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/ABCya!.jpeg"
+                          alt="abcya"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.abcya.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- PBS Kids -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">PBS Kids</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos, videos y actividades educativas con personajes
+                          populares para niños pequeños.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/PBS Kids.jpeg"
+                          alt="pbs kids"
+                        />
+                      </div>
+
+                      <a
+                        href="https://pbskids.org"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Scratch -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Scratch</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Plataforma para aprender programación creando
+                          historias, juegos y animaciones.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Scratch.jpeg"
+                          alt="scratch"
+                        />
+                      </div>
+
+                      <a
+                        href="https://scratch.mit.edu"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Prodigy Math -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Prodigy Math</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juego de aventuras matemáticas que refuerza
+                          habilidades desde 1º hasta 8º grado.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Prodigy Math.jpeg"
+                          alt="prodigy math"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.prodigygame.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- CoolMath4Kids -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">CoolMath4Kids</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos y acertijos para practicar matemáticas de
+                          manera divertida.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/CoolMath4Kids.jpeg"
+                          alt="coolmath4kids"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.coolmath4kids.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- NASA Space Place -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">NASA Space Place</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Recursos, juegos y actividades sobre el espacio y la
+                          ciencia para niños.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/NASA Space Place.jpeg"
+                          alt="nasa space place"
+                        />
+                      </div>
+
+                      <a
+                        href="https://spaceplace.nasa.gov"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Wonderopolis -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Wonderopolis</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Respuestas a preguntas curiosas de los niños sobre
+                          ciencia, cultura y más.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Wonderopolis.jpeg"
+                          alt="wonderopolis"
+                        />
+                      </div>
+
+                      <a
+                        href="https://wonderopolis.org"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Reading Eggs -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Reading Eggs</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Plataforma para aprender a leer mediante juegos,
+                          canciones y libros interactivos.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Reading Eggs.jpeg"
+                          alt="reading eggs"
+                        />
+                      </div>
+
+                      <a
+                        href="https://readingeggs.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Arcademics -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Arcademics</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos multijugador para practicar matemáticas y
+                          lengua.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Arcademics.jpeg"
+                          alt="arcademics"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.arcademics.com"
+                        class="btn btn-dark boton-recurso"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Smithsonian Learning Lab -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">
+                          Smithsonian Learning Lab
+                        </h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Recursos digitales y actividades interactivas de
+                          museos para niños y docentes.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/SMITHSONIAN.jpeg"
+                          alt="smithsonian learning lab"
+                        />
+                      </div>
+
+                      <a
+                        href="https://learninglab.si.edu"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- TED-Ed -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">TED-Ed</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Videos animados y lecciones interactivas sobre
+                          ciencia, historia y creatividad.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/TED-Ed.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://ed.ted.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Árbol ABC -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Árbol ABC</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos y ejercicios interactivos para niños de 3 a 10
+                          años, basados en inteligencias múltiples.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Árbol ABC.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.arbolabc.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Science & Fun by Elesapiens -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">
+                          Science & Fun by Elesapiens
+                        </h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Recursos y juegos de ciencias en español e inglés para
+                          primaria.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Science & Fun by Elesapiens.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.elesapiens.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- SuperSaber -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">SuperSaber</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos interactivos para aprender sobre ciencias,
+                          ortografía y matemáticas.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/SuperSaber.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.supersaber.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Childtopia -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Childtopia</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Más de 1,200 juegos educativos de música, lengua,
+                          matemáticas y creatividad.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Childtopia.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.childtopia.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Kahoot! -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Kahoot!</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos de preguntas y cuestionarios interactivos para
+                          todas las edades y materias.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Kahoot!.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://kahoot.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Quizizz -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Quizizz</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Plataforma de cuestionarios y juegos interactivos para
+                          aprendizaje activo.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Quizizz.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://quizizz.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Smile and Learn -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Smile and Learn</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos, videos y actividades didácticas para infantil
+                          y primaria.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Smile and Learn.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.smileandlearn.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- MundoPrimaria -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">MundoPrimaria</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos y recursos interactivos para matemáticas,
+                          lengua, ciencias y arte.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/MundoPrimaria.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.mundoprimaria.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Vedoque -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Vedoque</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Juegos y actividades para aprender matemáticas, lengua
+                          y lógica de forma divertida.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Vedoque.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.vedoque.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+                    <!-- Cristic.com -->
+                    <div class="first-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Cristic.com</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Más de 600 juegos educativos y actividades
+                          interactivas para niños de Infantil y Primaria.
+                          Contenido gratuito, sin registros ni publicidad.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/cris.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://cristic.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+
+                    <!-- Cokitos -->
+                    <div class="second-resource-card-style col-6 rounded-4">
+                      <div class="libro-header">
+                        <h3 class="acceso-remoto-titulo">Cokitos</h3>
+                      </div>
+                      <div class="contenerdor-acceso-remoto">
+                        <p class="acceso-remoto-descripcion">
+                          Plataforma con juegos educativos online para niños de
+                          primaria y secundaria, sin necesidad de descargar
+                          nada.
+                        </p>
+                        <img
+                          class="imagenes-recuroso"
+                          src="../../assets/img/Cokitos.jpeg"
+                          alt="ted-ed"
+                        />
+                      </div>
+
+                      <a
+                        href="https://www.cokitos.com"
+                        class="btn btn-dark boton-recurso boton-recursos"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ir al recurso
+                        <img
+                          class="ms-2"
+                          src="../../assets/img/link.png"
+                          alt="Icono link"
+                          width="20px"
+                          height="20px"
+                        />
+                      </a>
+                    </div>
+                  </div>
                 </div>
-
-            </main>
-        </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
-
-    <script src="/js/script.js" type="module"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</body>
-
+  </body>
 </html>

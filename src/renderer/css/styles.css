@@ -766,10 +766,24 @@ body {
     border-bottom: 1px solid #ddd;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
+.contenedor-acceso-remoto{
+    display: flex;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.imagenes-recuroso{
+    margin-bottom: 20px;
+}
 .first-resource-card-style{
     width: 507px;
-    height: 283px;
-    padding: 10px;
+    height: 400px;
+    padding: 20px;
+    margin-right: 40px;
+    margin-bottom: 50px;
     background-color: rgb(249, 238, 226);
     box-shadow: -2px 3px 19px 0px rgba(249, 238, 226, 0.95);
     -webkit-box-shadow: -2px 3px 19px 0px rgba(249, 238, 226, 0.95);
@@ -777,8 +791,9 @@ body {
 }
 .second-resource-card-style{
     width: 507px;
-    height: 283px;
-    padding: 10px;
+    height: 400px;
+    padding: 20px;
+    margin-bottom: 50px;
     background-color: rgb(118, 81, 221);
     box-shadow: -2px 3px 19px 0px rgba(118, 81, 221, 0.75);
     -webkit-box-shadow: -2px 3px 19px 0px rgba(118, 81, 221, 0.75);
@@ -786,8 +801,10 @@ body {
 }
 .third-resource-card-style{
     width: 507px;
-    height: 283px;
-    padding: 10px;
+    height: 400px;
+    padding: 20px;
+        margin-right: 40px;
+            margin-bottom: 50px;
     background-color: rgb(224, 214, 246);
     box-shadow: -2px 3px 19px 0px rgba(224, 214, 246, 0.95);
     -webkit-box-shadow: -2px 3px 19px 0px rgba(224, 214, 246, 0.95);
@@ -795,8 +812,8 @@ body {
 }
 .fourth-resource-card-style{
     width: 507px;
-    height: 283px;
-    padding: 10px;
+    height: 400px;
+    padding: 20px;
     background-color: rgb(255, 205, 106);
     box-shadow: -2px 3px 19px 0px rgba(255, 205, 106, 0.75);
     -webkit-box-shadow: -2px 3px 19px 0px rgba(255, 205, 106, 0.75);

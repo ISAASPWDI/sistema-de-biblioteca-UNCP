@@ -73,10 +73,10 @@ El sistema cuenta con dos interfaces principales: **Administrador** y **Estudian
 ## 📷 Capturas de Pantalla
 
 ### 📊 Dashboard Administrador
-![Dashboard Admin](https://via.placeholder.com/800x400?text=Dashboard+Administrador)
+![Dashboard Admin](http://imgfz.com/i/qtSQB6Y.png)
 
-### 📚 Biblioteca Digital
-![Biblioteca Digital](https://via.placeholder.com/800x400?text=Biblioteca+Digital)
+### 📚 Dashboard Estudiante
+![Dashboard Student](http://imgfz.com/i/OJof79r.png)
 
 ## 🤝 Contribuciones
 ¡Cualquier colaboración es bienvenida! Para contribuir, por favor sigue estos pasos:

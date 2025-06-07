@@ -41,7 +41,7 @@ El sistema cuenta con dos interfaces principales: **Administrador** y **Estudian
 
 ## 🏗️ Arquitectura del Sistema
 
-![Arquitectura](https://via.placeholder.com/800x400?text=Arquitectura+del+Sistema)
+![Arquitectura](http://imgfz.com/i/cqHudEV.png)
 
 1. **Frontend (HTML, CSS, Bootstrap, JavaScript)** → Interfaz de usuario interactiva 📜
 2. **Backend (Node.js + Express.js)** → Gestión de datos y lógica del negocio ⚡

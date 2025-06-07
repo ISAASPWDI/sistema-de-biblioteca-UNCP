@@ -41,7 +41,7 @@ El sistema cuenta con dos interfaces principales: **Administrador** y **Estudian
 
 ## 🏗️ Arquitectura del Sistema
 
-![Arquitectura](https://via.placeholder.com/800x400?text=Arquitectura+del+Sistema)
+![Arquitectura](http://imgfz.com/i/cqHudEV.png)
 
 1. **Frontend (HTML, CSS, Bootstrap, JavaScript)** → Interfaz de usuario interactiva 📜
 2. **Backend (Node.js + Express.js)** → Gestión de datos y lógica del negocio ⚡
@@ -73,10 +73,10 @@ El sistema cuenta con dos interfaces principales: **Administrador** y **Estudian
 ## 📷 Capturas de Pantalla
 
 ### 📊 Dashboard Administrador
-![Dashboard Admin](https://via.placeholder.com/800x400?text=Dashboard+Administrador)
+![Dashboard Admin](http://imgfz.com/i/eZr8I2k.png)
 
 ### 📚 Biblioteca Digital
-![Biblioteca Digital](https://via.placeholder.com/800x400?text=Biblioteca+Digital)
+![Biblioteca Digital](http://imgfz.com/i/GQjatib.png)
 
 ## 🤝 Contribuciones
 ¡Cualquier colaboración es bienvenida! Para contribuir, por favor sigue estos pasos:

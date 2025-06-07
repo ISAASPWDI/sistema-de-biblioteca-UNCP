@@ -1,0 +1,131 @@
+Perfecto, gracias por la aclaración.
+
+Como sí necesitas acceder desde otras computadoras en la red, localhost no te sirve, porque otras PCs no pueden acceder al localhost de tu máquina — necesitan conectarse por tu IP real en red local (192.168.1.244). Y ahí es donde entran los problemas de seguridad (CORS, SSL, políticas del navegador/Electron).
+
+🎯 Objetivo:
+Tener tu app servida en http://192.168.1.244:3000 (sin HTTPS), que funcione en Electron y que otras computadoras accedan sin errores.
+
+✅ Solución Recomendable: Configurar HTTPS en tu servidor Express
+Aunque estés en red local, Electron y Chromium requieren HTTPS para muchas políticas modernas, como:
+
+Cross-Origin-Opener-Policy
+
+Origin-Agent-Cluster
+
+Recursos compartidos en red local (como imágenes, CSS, JS)
+
+🛠️ PASOS para configurar Express con HTTPS (usando certificado autofirmado):
+1. 🔒 Generar certificados autofirmados
+Abre tu terminal y ejecuta:
+
+bash
+Copiar
+Editar
+openssl req -x509 -newkey rsa:2048 -nodes -keyout server.key -out server.cert -days 365
+Se te pedirán datos como "Country", "Common Name" → puedes llenarlos o presionar Enter.
+
+Esto generará:
+
+server.key
+
+server.cert
+
+2. 🔧 Modifica tu archivo donde creas el servidor Express (por ejemplo app.js o server.js)
+Reemplaza http.createServer por lo siguiente:
+
+js
+Copiar
+Editar
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
+
+// Cargar certificados
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'server.cert')),
+};
+
+// Crear servidor HTTPS
+const server_instance = https.createServer(options, app);
+
+return new Promise((resolve) => {
+  server_instance.listen(3000, '0.0.0.0', () => {
+    const port = server_instance.address().port;
+    console.log('Servidor HTTPS Express iniciado en puerto:', port);
+    sessionStore.setPort(port);
+    resolve(port);
+  });
+});
+🔐 Ahora estás sirviendo https://192.168.1.244:3000 (con certificado autofirmado).
+
+3. 🔄 Modifica tu main.js en Electron
+Asegúrate de:
+
+Usar la IP del servidor
+
+Usar https://
+
+Ignorar errores de certificado (autofirmado)
+
+Cambia fetch(...) así:
+js
+Copiar
+Editar
+fetch(`https://192.168.1.244:${port}/login`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(credentials),
+});
+Y ya tienes esto (¡bien!):
+js
+Copiar
+Editar
+app.commandLine.appendSwitch('ignore-certificate-errors');
+4. ✅ Permitir el puerto 3000 en firewall del servidor
+Haz esto solo en la computadora 192.168.1.244 (servidor):
+
+Abre Panel de control > Firewall de Windows > Reglas de entrada
+
+Añade nueva regla:
+
+Tipo: Puerto
+
+TCP / Puerto específico: 3000
+
+Permitir conexión
+
+Nombre: Express HTTPS
+
+5. ✅ Prueba desde otra computadora
+En otra PC de la misma red, abre:
+
+arduino
+Copiar
+Editar
+https://192.168.1.244:3000/ping
+Es normal que el navegador diga "Tu conexión no es privada"
+
+Acepta el riesgo (porque el certificado es autofirmado)
+
+Si ves tu página: 🎉 ¡funciona!
+
+🎁 Bonus: Cómo evitar advertencias HTTPS en Electron sin romper seguridad
+Si quieres que no aparezcan advertencias, puedes instalar el certificado autofirmado en las PCs clientes, pero eso no es necesario si ya estás ignorando errores con:
+
+js
+Copiar
+Editar
+app.commandLine.appendSwitch('ignore-certificate-errors');
+✅ Resumen
+Paso	Acción
+🔐 Generar certificado	openssl req -x509 ...
+🔧 Servir con https.createServer	✔️
+🛡️ Ignorar certificado en Electron	app.commandLine.appendSwitch(...)
+🌐 Usar https://192.168.1.244:3000 en fetch() y frontend	✔️
+🔓 Abrir puerto 3000 en firewall	✔️
+✅ Probar desde otra PC	https://192.168.1.244:3000/
+
+¿Quieres que te prepare los archivos listos para usar server.cert y server.key, y un ejemplo de cómo organizarlos en tu proyecto?

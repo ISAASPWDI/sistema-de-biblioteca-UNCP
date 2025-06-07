@@ -9,10 +9,17 @@ const sessionStore = require('./sessionStore.js');
 const multer = require('multer');
 const PDFDocument = require('pdfkit');
 const moment = require('moment');
+const fs = require('fs');
+const https = require('https');
 // Iniciar servidor en un puerto aleatorio disponible
 const http = require('http');
 require('dotenv').config();
+
 async function setupServer() {
+    const options = {
+  key: fs.readFileSync(path.join(__dirname, 'server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'server.cert')),
+};
     //MULTER
 // Configurar multer para almacenar las imágenes
 const storage = multer.diskStorage({
@@ -45,7 +52,7 @@ const upload = multer({
 //CREAR SERVIDOR
 const app = express();
 //CORS
-app.use(cors());
+
 app.use(
     helmet({
         contentSecurityPolicy: {
@@ -1034,7 +1041,7 @@ app.get('/ping', (req, res) => {
     res.send('Servidor funcionando correctamente 🚀');
 });
 
-const server_instance = http.createServer(app);
+const server_instance = https.createServer(options,app);
 return new Promise((resolve) => {
     server_instance.listen(3000, '0.0.0.0', () => {
     const port = server_instance.address().port;

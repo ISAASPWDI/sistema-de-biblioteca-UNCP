@@ -1,5 +1,8 @@
 // main.js
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+app.commandLine.appendSwitch('ignore-certificate-errors');
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 const sessionStore = require('./sessionStore.js');
 const path = require('path');
 const { setMenu } = require('./menu.js');
@@ -81,7 +84,7 @@ app.whenReady().then(async () => {
                     };
                 }
 
-                const response = await fetch(`http://192.168.1.244:${port}/login`, {
+                const response = await fetch(`https://192.168.1.244:${port}/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -111,7 +114,7 @@ app.whenReady().then(async () => {
         ipcMain.handle('logout', async () => {
             const port = sessionStore.getPort();
             try {
-                const response = await fetch(`http://192.168.1.244:${port}/logout`, {
+                const response = await fetch(`https://192.168.1.244:${port}/logout`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

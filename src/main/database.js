@@ -3,10 +3,10 @@ const mssql = require('mssql');
 require('dotenv').config();
 
 const config = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,  // Asegúrate que este es el nombre correcto del servidor
-    database: process.env.DB_NAME,
+    user: process.env.DB_USER || "sa",
+    password: process.env.DB_PASSWORD || "17032004",
+    server: process.env.DB_SERVER || "DESKTOP-5M28LG4",  // Asegúrate que este es el nombre correcto del servidor
+    database: process.env.DB_NAME || "bibliotecauncp",
     options: {
         encrypt: false, // Para conexiones locales
         trustServerCertificate: true,

@@ -146,8 +146,8 @@ app.post('/login', async (req, res) => {
         };
 
         const redirectUrl = user.rol === 'admin'
-            ? `http://192.168.1.244:${sessionStore.getPort()}/interfazAdmin.html`
-            : `http://192.168.1.244:${sessionStore.getPort()}/interfazStudent.html`;
+            ? `https://192.168.1.244:${sessionStore.getPort()}/interfazAdmin.html`
+            : `https://192.168.1.244:${sessionStore.getPort()}/interfazStudent.html`;
 
         res.json({
             success: true,
@@ -230,7 +230,7 @@ app.post('/logout', (req, res) => {
         // Simplemente devolvemos la URL de redirección
         res.json({
             success: true,
-            url: `http://192.168.1.244:${sessionStore.getPort()}/views/index.html`
+            url: `https://192.168.1.244:${sessionStore.getPort()}/views/index.html`
         });
     } catch (error) {
         console.error('Error en logout:', error);

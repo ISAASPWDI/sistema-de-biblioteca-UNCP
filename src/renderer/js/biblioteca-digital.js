@@ -42,7 +42,7 @@ async function agregarAFavoritos(idLibro, btnElement) {
             return;
         }
         const port = await window.sessionAPI.getPort();
-        const response = await fetch(`http://192.168.1.244:${port}/favoritos`, {
+        const response = await fetch(`https://192.168.1.244:${port}/favoritos`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

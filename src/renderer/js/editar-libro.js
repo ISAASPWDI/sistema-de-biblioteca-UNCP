@@ -115,7 +115,7 @@ async function handleEdit(event) {
     try {
         const port = await window.sessionAPI.getPort();
 
-        const res = await fetch(`http://192.168.1.244:${port}/libros`, {
+        const res = await fetch(`https://192.168.1.244:${port}/libros`, {
             method: 'PUT',
             body: formData,
         });

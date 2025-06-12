@@ -85,7 +85,7 @@ export function initEliminarLibro() {
 
     async function eliminarLibro(id) {
         const port = await window.sessionAPI.getPort();
-        const response = await fetch(`https://192.168.1.244:${port}/libros/${id}`, {
+        const response = await fetch(`/libros/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
